@@ -39,9 +39,18 @@
             <v-card>
               <v-card-title>
                 <v-spacer></v-spacer>
-                <v-text-field v-model="search" append-icon="mdi-search-web" label="Search" single-line hide-details></v-text-field>
+                <v-text-field 
+                  v-model="search" 
+                  append-icon="mdi-search-web" 
+                  label="Search" 
+                  single-line 
+                  hide-details>
+                </v-text-field>
               </v-card-title>
-              <v-data-table :headers="headers" :items="desserts" :search="search">
+              <v-data-table 
+                :headers="headers" 
+                :items="desserts" 
+                :search="search">
                 <template v-slot:items="props">
                   <td>{{ props.item.nombreOrganizacion }}</td>
                   <td>{{ props.item.siglasOrganizacion }}</td>
