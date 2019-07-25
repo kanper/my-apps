@@ -5,10 +5,11 @@ import organizacionService from '../services/OrganizacionService'
 import objetivoService from '../services/ObjetivoService'
 import usuarioService from '../services/UsuarioService'
 
-let apiUrl = 'https://localhost:44320/'
+let apiUrl = 'https://localhost:44320/';
+//let apiUrl = 'http://127.0.0.1:5000/';
 
 // Axios Configuration
-Axios.defaults.headers.common.Accept = 'application/json'
+Axios.defaults.headers.common.Accept = 'application/json';
 
 export default {
     paisService: new paisService(Axios, apiUrl),
