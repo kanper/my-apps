@@ -1,35 +1,29 @@
 class ObjetivoService {
-    axios
-    baseUrl
+    axios; baseUrl;
 
     constructor(axios, apiUrl) {
-        this.axios = axios
-        this.baseUrl = `${apiUrl}objetivo`
+        this.axios = axios;
+        this.baseUrl = `${apiUrl}objetivo`;
     }
 
     get(id) {
-        let self = this
-        return self.axios.get(`${self.baseUrl}/${id}`)
+        return this.axios.get(`${this.baseUrl}/${id}`)
     }
 
     getAll() {
-        let self = this
-        return self.axios.get(`${self.baseUrl}`)
+        return this.axios.get(`${this.baseUrl}`)
     }
 
     add(model) {
-        let self = this
-        return self.axios.post(`${self.baseUrl}`, model)
+        return this.axios.post(`${this.baseUrl}`, model)
     }
 
     update(model, id) {
-        let self = this
-        return self.axios.put(`${self.baseUrl}/${id}`, model)
+        return this.axios.put(`${this.baseUrl}/${id}`, model)
     }
 
     remove(id) {
-        let self = this
-        return self.axios.delete(`${self.baseUrl}-${id}`)
+        return this.axios.delete(`${this.baseUrl}-${id}`)
     }
 }
 

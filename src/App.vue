@@ -1,16 +1,24 @@
 <template>
   <v-app>
-    <v-toolbar app class="blue-grey darken-4">
+    <v-toolbar app class="blue-grey darken-4" dark>
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
       <v-img src="logo1.png"  max-height="30" max-width="100"></v-img>
     </v-toolbar>
     <v-navigation-drawer app v-model="drawer" absolute dark temporary>
-      <v-layout column align-center>
-            <v-list-tile>
-              <v-list-tile-title class="white--text mt-4">SysAdmin</v-list-tile-title>
-            </v-list-tile>
-      </v-layout>
-      <v-list class="pt-0 mt-3" dense v-for="item in items" :key="item.title">
+      <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <v-icon>mdi-account</v-icon>
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>Administrador Sistema</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-list class="pt-0 pb-0" dense v-for="item in items" :key="item.title">
         <v-divider light></v-divider>
         <v-list-group :prepend-icon="item.icon">
           <template v-slot:activator>
@@ -57,13 +65,15 @@ export default {
               { icon:'mdi-format-list-bulleted', title:'País', path:'/paises' },
             ] 
           },
-          { 
-            title: 'Plan de Monitoreo y Evaluación', 
-            icon: 'mdi-view-dashboard', 
+          {
+            title: 'Plan de Monitoreo y Evaluación',
+            icon: 'mdi-compass-outline',
             children: [
-              //{ icon:'mdi-plus-box', title:'Agregar', path:'/objetivos/add' },
-              { icon:'mdi-format-list-bulleted', title:'Objetivo', path:'/objetivos' },
-            ] 
+              { icon:'mdi-flag-variant', title:'Indicador', path:'/objetivos' },
+              { icon:'mdi-calendar-multiple-check', title:'Actividad', path:'/objetivos' },
+              { icon:'mdi-lightbulb', title:'Resultado', path:'/objetivos' },
+              { icon:'mdi-checkbox-marked-circle-outline', title:'Objetivo', path:'/objetivos' },
+            ]
           },
         ],
       right: false
