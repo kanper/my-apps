@@ -4,23 +4,33 @@ import Home from './views/Home.vue'
 import OrganizacionIndex from './components/organizaciones/Index'
 import PaisIndex from './components/paises/Index'
 import SocioIndex from './components/socios/Index'
-import ObjetivoIndex from './components/objetivo/index'
+import ObjetivoIndex from './components/objetivo/Index'
+import ObjetivoResultadoIndex from './components/resultado/IndexOR'
+import ResultadoIndex from './components/resultado/Index'
+import ResultadoActividadIndex from './components/actividad/IndexRA'
+import ActividadIndex from './components/actividad/Index'
+import IndicadorIndex from './components/indicador/Index'
 import UsuarioIndex from './components/usuarios/Index'
 import UsuarioCreateUpdate from './components/usuarios/CreateOrUpdate'
 
 Vue.use(Router);
 
 const routes = [
-  { path: '/', name: 'home', component: Home },
-  { path: '/organizaciones/', name: 'OrganizacionIndex', component: OrganizacionIndex },
-  { path: '/paises/', name: 'PaisIndex', component: PaisIndex },
-  { path: '/socios/', name: 'SocioIndex', component: SocioIndex },
-  { path: '/objetivos/', name: 'objetivo-index', component: ObjetivoIndex },
-  { path: '/usuarios/', name: 'UsuarioIndex', component: UsuarioIndex },
-  { path: '/usuarios/add', name: 'UsuarioCreate', component: UsuarioCreateUpdate },
-  { path: '/usuario/:id/edit', name: 'usuarioEditar', component: UsuarioCreateUpdate }
+    {path: '/', name: 'home', component: Home},
+    {path: '/organizaciones/', name: 'OrganizacionIndex', component: OrganizacionIndex},
+    {path: '/paises/', name: 'PaisIndex', component: PaisIndex},
+    {path: '/socios/', name: 'SocioIndex', component: SocioIndex},
+    {path: '/objetivos/', name: 'objetivo-index', component: ObjetivoIndex},
+    {path: '/objetivo/:id/resultados', name: 'objetivo-resultado-index', component: ObjetivoResultadoIndex},
+    {path: '/resultados/', name: 'resultado-index', component: ResultadoIndex},
+    {path: '/resultado/:id/actividades', name: 'resultado-actividad-index', component: ResultadoActividadIndex},
+    {path: '/actividades/', name: 'actividad-index', component: ActividadIndex},
+    {path: '/indicadores/', name: 'indicador-index', component: IndicadorIndex},
+    {path: '/usuarios/', name: 'UsuarioIndex', component: UsuarioIndex},
+    {path: '/usuarios/add', name: 'UsuarioCreate', component: UsuarioCreateUpdate},
+    {path: '/usuario/:id/edit', name: 'usuarioEditar', component: UsuarioCreateUpdate}
 ];
 
 export default new Router({
-  routes
+    routes
 })
