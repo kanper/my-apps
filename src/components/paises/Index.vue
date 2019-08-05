@@ -1,12 +1,14 @@
 <template>
   <div>
     <v-toolbar flat color="white">
+      <v-list-tile-avatar>
+        <v-icon large left>mdi-flag</v-icon>
+      </v-list-tile-avatar>
       <v-toolbar-title>País</v-toolbar-title>
-      <v-divider class="mx-2" inset vertical></v-divider>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="800px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">Agregar</v-btn>
+          <v-btn color="primary" dark class="mb-2" v-on="on">Agregar<v-icon right dark>mdi-plus</v-icon></v-btn>
         </template>
         <v-card>
           <v-card-title>
@@ -16,13 +18,14 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6>
-                  <v-text-field v-model="editedItem.nombrePais" :rules="nombreRules" label="Nombre del País"></v-text-field>
+                  <v-text-field v-model="editedItem.nombrePais" :rules="nombreRules" label="Nombre del País*"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
-                  <v-text-field v-model="editedItem.siglaPais" :rules="siglaRules" label="Siglas del País"></v-text-field>
+                  <v-text-field v-model="editedItem.siglaPais" :rules="siglaRules" label="Siglas del País*"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
+            <small>* Indica que el campo es requerido</small>
           </v-card-text>
 
           <v-card-actions>
@@ -38,11 +41,13 @@
         <v-flex>
             <v-card>
               <v-card-title>
+                Indice -> Paises
                 <v-spacer></v-spacer>
                 <v-text-field v-model="search" append-icon="mdi-search-web" label="Search" single-line hide-details></v-text-field>
               </v-card-title>
-              <v-data-table :headers="headers" :items="desserts" :search="search">
+              <v-data-table :headers="headers" :items="desserts" :search="search" select-all>
                 <template v-slot:items="props">
+                  <td><v-checkbox v-model="props.selected" primary hide-details></v-checkbox></td>
                   <td>{{ props.item.nombrePais }}</td>
                   <td>{{ props.item.siglaPais }}</td>
                   <td class="justify-center layout px-0">
@@ -91,9 +96,9 @@
             text: 'País',
             align: 'center',
             sortable: true,
-            value: 'pais'
+            value: 'nombrePais'
           },
-          { text: 'Siglas', value: 'siglas' },
+          { text: 'Siglas', value: 'siglaPais' },
           { text: 'Opciones', value: 'name', sortable: true, align: 'center' },
         ],
         desserts: [],

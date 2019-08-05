@@ -60,9 +60,9 @@ export default {
             title: 'Administración de Catalogos', 
             icon: 'mdi-view-dashboard', 
             children: [
-              { icon:'mdi-format-list-bulleted', title:'Organizaciones', path:'/organizaciones' },
-              { icon:'mdi-format-list-bulleted', title:'Socios', path:'/socios' },
-              { icon:'mdi-format-list-bulleted', title:'País', path:'/paises' },
+              { icon:'mdi-office-building', title:'Organizaciones', path:'/organizaciones' },
+              { icon:'mdi-account-group', title:'Socios', path:'/socios' },
+              { icon:'mdi-flag', title:'País', path:'/paises' },
             ] 
           },
           {

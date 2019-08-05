@@ -1,12 +1,14 @@
 <template>
   <div>
     <v-toolbar flat color="white">
+      <v-list-tile-avatar>
+        <v-icon large left>mdi-office-building</v-icon>
+      </v-list-tile-avatar>
       <v-toolbar-title>Organizaciones Responsables</v-toolbar-title>
-      <v-divider class="mx-2" inset vertical></v-divider>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="800px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">Agregar</v-btn>
+          <v-btn color="primary" dark class="mb-2" v-on="on">Agregar<v-icon right dark>mdi-plus</v-icon></v-btn>
         </template>
         <v-card>
           <v-card-title>
@@ -16,13 +18,14 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6>
-                  <v-text-field v-model="editedItem.nombreOrganizacion" :rules="nombreRules" label="Nombre de la Organización"></v-text-field>
+                  <v-text-field v-model="editedItem.nombreOrganizacion" :rules="nombreRules" label="Nombre de la Organización *"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
-                  <v-text-field v-model="editedItem.siglasOrganizacion" :rules="siglasRules" label="Siglas de la Organización"></v-text-field>
+                  <v-text-field v-model="editedItem.siglasOrganizacion" :rules="siglasRules" label="Siglas de la Organización *"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
+            <small>* Indica que el campo es requerido</small>
           </v-card-text>
 
           <v-card-actions>
@@ -38,6 +41,7 @@
         <v-flex>
             <v-card>
               <v-card-title>
+                Indice -> Organizaciones
                 <v-spacer></v-spacer>
                 <v-text-field 
                   v-model="search" 
@@ -50,8 +54,10 @@
               <v-data-table 
                 :headers="headers" 
                 :items="desserts" 
-                :search="search">
+                :search="search"
+                select-all>
                 <template v-slot:items="props">
+                  <td><v-checkbox v-model="props.selected" primary hide-details></v-checkbox></td>
                   <td>{{ props.item.nombreOrganizacion }}</td>
                   <td>{{ props.item.siglasOrganizacion }}</td>
                   <td class="justify-center layout px-0">
@@ -100,9 +106,9 @@
             text: 'Organización',
             align: 'center',
             sortable: true,
-            value: 'organizacion'
+            value: 'nombreOrganizacion'
           },
-          { text: 'Siglas', value: 'siglas' },
+          { text: 'Siglas', value: 'siglasOrganizacion' },
           { text: 'Opciones', value: 'name', sortable: true, align: 'center' },
         ],
         desserts: [],
