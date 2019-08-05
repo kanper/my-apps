@@ -9,7 +9,7 @@
                     <v-list-tile-title>{{mainTitle}}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-layout align-left justify-end>
-                    <FormCard />
+                    <v-btn color="primary" dark @click="showNewForm">Nuevo <v-icon right dark>mdi-plus</v-icon></v-btn>
                 </v-layout>
             </v-list-tile>
         </v-card-actions>
@@ -17,14 +17,19 @@
 </template>
 
 <script>
-    import FormCard from './form-card-new'
+    import { mapMutations } from 'vuex'
     export default {
-        components: {FormCard},
         props: ['mainTitle'],
         data () {
             return {
                 dialog: false
             }
+        },
+        methods: {
+            ...mapMutations(['changeNewDialogVisibility']),
+            showNewForm(){
+                this.changeNewDialogVisibility();
+            },
         }
     }
 </script>

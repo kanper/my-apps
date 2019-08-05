@@ -9,6 +9,7 @@ import usuarioService from '../services/UsuarioService'
 //let apiUrl = 'http://127.0.0.1:5000/';
 let apiUrl = 'http://localhost:5000/';
 
+
 // Axios Configuration
 Axios.defaults.headers.common.Accept = 'application/json';
 

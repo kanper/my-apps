@@ -8,7 +8,7 @@ import ObjetivoIndex from './components/objetivo/index'
 import UsuarioIndex from './components/usuarios/Index'
 import UsuarioCreateUpdate from './components/usuarios/CreateOrUpdate'
 
-Vue.use(Router)
+Vue.use(Router);
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -19,7 +19,7 @@ const routes = [
   { path: '/usuarios/', name: 'UsuarioIndex', component: UsuarioIndex },
   { path: '/usuarios/add', name: 'UsuarioCreate', component: UsuarioCreateUpdate },
   { path: '/usuario/:id/edit', name: 'usuarioEditar', component: UsuarioCreateUpdate }
-]
+];
 
 export default new Router({
   routes

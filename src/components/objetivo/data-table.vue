@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title>
-            Indice -> Objetivos
+            <h2 class="font-weight-light">Registro de {{modelTitle}}</h2>
             <v-spacer></v-spacer>
             <v-text-field
                     v-model="search"
@@ -11,33 +11,36 @@
             ></v-text-field>
         </v-card-title>
         <v-data-table
-                v-model="selected"
                 :headers="headers"
-                :items="objectives"
+                :items="dataTable"
                 :search="search"
-                select-all
         >
             <template v-slot:items="props">
-                <td><v-checkbox v-model="props.selected" primary hide-details></v-checkbox></td>
-                <td>{{ props.item.nombreObjetivo }}</td>
-                <td class="text-xs-center"></td>
+                <td>{{ resumeLargeText(props.item.nombre) }}</td>
+                <td class="text-xs-center">{{props.item.resultados}}</td>
 
                 <td class="justify-center layout px-0">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on }">
-                            <v-icon class="mr-2" v-on="on">mdi-pencil</v-icon>
+                        <template v-slot:activator="{ on }" >
+                            <v-icon class="mr-2" v-on="on" @click="showInfoDialog(props.item.id)">mdi-information-outline</v-icon>
+                        </template>
+                        <span>Información</span>
+                    </v-tooltip>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }" >
+                            <v-icon class="mr-2" v-on="on" @click="showEditForm(props.item.id)">mdi-pencil</v-icon>
                         </template>
                         <span>Editar</span>
                     </v-tooltip>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
-                            <v-icon class="mr-2" v-on="on" @click="myDialogClose">mdi-delete</v-icon>
+                            <v-icon class="mr-2" v-on="on" @click="showDeleteConfirmation(props.item.id)">mdi-delete</v-icon>
                         </template>
                         <span>Eliminar</span>
                     </v-tooltip>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
-                            <v-icon v-on="on">mdi-lightbulb</v-icon>
+                            <v-icon class="mr-3" v-on="on">mdi-lightbulb</v-icon>
                         </template>
                         <span>Resultados</span>
                     </v-tooltip>
@@ -49,64 +52,79 @@
                 </v-alert>
             </template>
         </v-data-table>
-        <DeleteDialog :dialogVisible="myDialogVisible" @close="myDialogClose"/>
+        <DataInfo :modelTitle="modelTitle" :CRUDModel="CRUDModel"/>
+        <FormNew :modelTitle="modelTitle"/>
+        <FormEdit :modelTitle="modelTitle" :CRUDModel="CRUDModel"/>
+        <DeleteDialog :CRUDModel="CRUDModel"/>
     </v-card>
 </template>
 
 <script>
+    import { mapState } from 'vuex'
+    import { mapMutations } from 'vuex'
+    import { mapActions } from 'vuex'
     import DeleteDialog from './delete-dialog'
+    import FormEdit from './form-card-edit'
+    import FormNew from './form-card-new'
+    import DataInfo from './data-card-info'
     export default {
-        components: {DeleteDialog},
+        props:['modelTitle'],
+        components: {DeleteDialog,FormEdit,FormNew,DataInfo},
         data () {
             return {
-                myDialogVisible: false,
                 search: '',
-                selected: [],
+                modelID: 0,
+                CRUDModel: {},
                 headers: [
-                    { text: 'Objetivo', align: 'left', value: 'nombreObjetivo'},
+                    { text: 'Objetivo', align: 'left', value: 'nombre'},
                     { text: 'Resultados', value: 'resultados' },
 
                     { text: 'Opciones', value: 'action', sortable: false }
                 ],
-                objectives: [],
             }
         },
+        computed: {
+            ...mapState(['services','dataTable'])
+        },
         methods: {
-            myDialogClose () {
-                this.myDialogVisible = true
-                // other code
-            },
-            initialize () {
-                this.getAll();
-            },
-            get() {
-            },
-            getAll() {
-                this.$store.state.services.objetivoService.getAll()
+            ...mapMutations(['showInfo','changeEditDialogVisibility','changeDeleteDialogVisibility','changeInfoDialogVisibility','closeAllDialogs','setCRUDModel']),
+            ...mapActions(['loadDataTable']),
+            loadModel(id) {
+                this.services.objetivoService.get(id)
                     .then(r => {
-                        this.objectives = r.data;
+                        this.CRUDModel = r.data;
                     })
                     .catch(e => {
-                        this.snackbar = true;
-                        this.mensaje = 'Error: ' + e.toString();
+                        this.showInfo(e.toString());
                     });
             },
-            dateFormat(UtcDate) {
-                if (UtcDate){
-                    var fDate = new Date(UtcDate);
-                    return fDate.getDay() + '/' + fDate.getMonth() + '/' + fDate.getFullYear() + ' ' + fDate.getHours() + ':' + fDate.getMinutes();
+            showInfoDialog(id){
+                this.loadModel(id);
+                this.closeAllDialogs();
+                this.changeInfoDialogVisibility();
+            },
+            showEditForm(id){
+                this.loadModel(id);
+                this.closeAllDialogs();
+                this.changeEditDialogVisibility();
+            },
+            showDeleteConfirmation(id){
+                this.loadModel(id);
+                this.closeAllDialogs();
+                this.changeDeleteDialogVisibility();
+            },
+            resumeLargeText(text) {
+                if(text.length > 250){
+                    return text.substring(0,251).concat('...');
                 }
-                return '--/--/-- --:--';
+                return text;
             }
         },
         watch: {
 
         },
-        computed: {
-
-        },
         created() {
-            this.initialize();
+            this.loadDataTable();
         }
     }
 </script>
