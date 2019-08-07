@@ -8,6 +8,8 @@ import resultadoService from '../services/ResultadoService'
 import resultadoActividadService from '../services/ResultadoActividadService'
 import actividadService from '../services/ActividadService'
 import indicadorService from '../services/IndicadorService'
+import proyectoService from '../services/ProyectoService'
+import proyectoHelperService from '../services/ProyectoHelperService'
 import usuarioService from '../services/UsuarioService'
 
 //let apiUrl = 'https://localhost:44320/';
@@ -26,5 +28,7 @@ export default {
     resultadoActividadService: new resultadoActividadService(Axios, apiUrl),
     actividadService: new actividadService(Axios, apiUrl),
     indicadorService: new indicadorService(Axios, apiUrl),
+    proyectoService: new proyectoService(Axios, apiUrl),
+    proyectoHelperService: new proyectoHelperService(Axios, apiUrl),
     usuarioService: new usuarioService(Axios, apiUrl)
 }

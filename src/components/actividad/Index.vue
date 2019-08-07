@@ -90,11 +90,14 @@
             }
         },
         methods: {
-            ...mapMutations(['defineModel','clearAlerts']),
+            ...mapMutations(['defineModel','clearAlerts','emptyDataTable']),
         },
         created() {
             this.clearAlerts();
             this.defineModel(this.model);
         },
+        destroyed() {
+            this.emptyDataTable();
+        }
     };
 </script>

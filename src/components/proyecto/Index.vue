@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TitleBar :enableAddBtn="false"/>
+        <TitleBar/>
         <AppAlert/>
         <v-container>
             <v-layout>
@@ -10,6 +10,7 @@
             </v-layout>
         </v-container>
         <DataInfo/>
+        <FormNew />
         <FormEdit />
         <DeleteDialog/>
         <InfoSnackbar/>
@@ -25,6 +26,7 @@
     import DataInfo from '../common/CardInfo'
     import AppAlert from '../common/Alert'
     import DataTable from '../common/DataTable'
+    import FormNew from './CardNew'
 
     export default {
         components: {
@@ -34,39 +36,49 @@
             TitleBar,
             AppAlert,
             FormEdit,
-            DataInfo
+            DataInfo,
+            FormNew
         },
-        name: "resultado-index",
+        name: "objetivo-index",
         data() {
             return {
                 model: {
-                    modelName: 'resultado',                              //Nombre del modelo actual
-                    modelIcon: 'mdi-lightbulb',                         //Icono que se muestra en representación del modelo
-                    modelTitle: 'Resultados',                            //Nombre que se muestra en representación del modelo
+                    modelName: 'proyecto',                              //Nombre del modelo actual
+                    modelIcon: 'mdi-briefcase',    //Icono que se muestra en representación del modelo
+                    modelTitle: 'Proyectos',                            //Nombre que se muestra en representación del modelo
                     modelPath: '',                                      //URL que junto a la BASE es la ruta al servidor
-                    modelService: 'resultadoService',                    //Nombre del servicio a utilizar
-                    modelPK: 'id',                          //Llave primaria del modelo
-                    modelStamp: 'nombreResultado',                       //Valor único representativo del modelo
+                    modelService: 'proyectoService',                    //Nombre del servicio a utilizar
+                    modelPK: 'codigoProyecto',                          //Llave primaria del modelo
+                    modelStamp: 'nombreProyecto',                       //Valor único representativo del modelo
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
-                            name: 'Resultado',
-                            value: 'nombreResultado'
+                            name: 'Nombre proyecto',
+                            value: 'nombreProyecto'
                         },
-                        {name: 'Objetivo', value: 'nombreObjetivo'}
+                        { name: 'Estado', value: 'estadoProyecto'},
+                        { name: 'Fecha Aprobación', value: 'fechaAprobacion'},
+                        { name: 'Fecha Inicio', value: 'fechaInicio'},
+                        { name: 'Fecha Fin', value: 'fechaFin'},
+                        { name: 'Beneficiarios', value: 'beneficiarios'},
+                        { name: 'Monto proyecto', value: 'montoProyecto'},
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }
                 },
                 dataTableHeaders: [
                     {
-                        text: 'Objetivo',   //Texto a mostrar en la cabecera de la columna
+                        text: 'Nombre',   //Texto a mostrar en la cabecera de la columna
                         align: 'left',      //Alineación del contenido en la columna
-                        value: 'nombreObjetivo',    //Nombre del atributo que se colocara en la columna
-                        width: '30%',       //Tamaño de la columna
+                        value: 'nombreProyecto',    //Nombre del atributo que se colocara en la columna
+                        width: '25%',       //Tamaño de la columna
                         type: 'text'        //Tipo del contenido a mostrar en la columna
                     },
-                    {text: 'Resultado', align: 'left', width: '30%', value: 'nombreResultado', type: 'text'},
-                    {text: 'Actividades', align: 'center', value: 'actividades', type: 'number'},
+                    {text: 'Estado', align: 'center', value: 'estadoProyecto', type: 'text'},
+                    {text: 'Aprobación', align: 'center', value: 'fechaAprobacion', type: 'date'},
+                    {text: 'Inicio', align: 'center', value: 'fechaInicio', type: 'date'},
+                    {text: 'Final', align: 'center', value: 'fechaFin', type: 'date'},
+                    {text: 'Beneficiarios', align: 'center', value: 'beneficiarios', type: 'number'},
+                    {text: 'Monto', align: 'center', value: 'montoProyecto', type: 'money'},
                     {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}
                 ],
                 dataTableOptions: [
@@ -79,14 +91,13 @@
                         route: '',                          //Ruta a redirigir
                         params: {}                          //Parametros para la ruta a redirigir
                     },
-                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', params: {}},
-                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: '', params: {}},
-                    {text: 'Actividades', type: 'redirect', icon: 'mdi-calendar-clock', action: '', class: 'mr-3', route: 'resultado-actividad-index', params: {}}
+                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: ''},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: ''},
                 ],
             }
         },
         methods: {
-            ...mapMutations(['defineModel', 'clearAlerts','emptyDataTable']),
+            ...mapMutations(['defineModel','clearAlerts','emptyDataTable']),
         },
         created() {
             this.clearAlerts();

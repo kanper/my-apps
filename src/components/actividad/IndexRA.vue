@@ -93,7 +93,7 @@
             ...mapState(['services'])
         },
         methods: {
-            ...mapMutations(['defineModel','clearAlerts']),
+            ...mapMutations(['defineModel','clearAlerts','emptyDataTable']),
         },
         created() {
             this.clearAlerts();
@@ -106,5 +106,8 @@
                     this.showInfo(e.toString());
                 });
         },
+        destroyed() {
+            this.emptyDataTable();
+        }
     };
 </script>

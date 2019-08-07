@@ -56,6 +56,14 @@
                         return this.resumeLargeText(value);
                     case 'number':
                         return value;
+                    case 'date':
+                        return this.formatDate(value);
+                    case 'datetime':
+                        return this.formatDateTime(value);
+                    case 'money':
+                        return '$ ' + value;
+                    case 'time':
+                        return this.formatTime(value);
                     case 'option':
                         return null;
                     default:
@@ -69,7 +77,20 @@
                     }
                 }
                 return text;
+            },
+            formatDate(text){
+                let date = text.split('T')[0];
+                return date;
+            },
+            formatTime(text){
+                let time = text.split('T')[1];
+                return time;
+            },
+            formatDateTime(text){
+                let datetime = text.split('T');
+                return datetime[0] + ' ' + datetime[1];
             }
+
         },
         created() {
             this.loadDataTable();

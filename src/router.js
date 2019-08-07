@@ -10,6 +10,7 @@ import ResultadoIndex from './components/resultado/Index'
 import ResultadoActividadIndex from './components/actividad/IndexRA'
 import ActividadIndex from './components/actividad/Index'
 import IndicadorIndex from './components/indicador/Index'
+import ProyectoIndex from './components/proyecto/Index'
 import UsuarioIndex from './components/usuarios/Index'
 import UsuarioCreateUpdate from './components/usuarios/CreateOrUpdate'
 
@@ -26,6 +27,7 @@ const routes = [
     {path: '/resultado/:id/actividades', name: 'resultado-actividad-index', component: ResultadoActividadIndex},
     {path: '/actividades/', name: 'actividad-index', component: ActividadIndex},
     {path: '/indicadores/', name: 'indicador-index', component: IndicadorIndex},
+    {path: '/proyectos/', name: 'proyecto-index', component: ProyectoIndex},
     {path: '/usuarios/', name: 'UsuarioIndex', component: UsuarioIndex},
     {path: '/usuarios/add', name: 'UsuarioCreate', component: UsuarioCreateUpdate},
     {path: '/usuario/:id/edit', name: 'usuarioEditar', component: UsuarioCreateUpdate}

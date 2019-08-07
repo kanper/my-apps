@@ -75,6 +75,13 @@
                             {icon: 'mdi-checkbox-marked-circle-outline', title: 'Objetivos', path: '/objetivos'},
                         ]
                     },
+                    {
+                        title: 'Proyecto',
+                        icon: 'mdi-briefcase',
+                        children: [
+                            {icon: 'mdi-format-list-bulleted', title: 'Listar', path:'/proyectos'},
+                        ]
+                    },
                 ],
                 right: false
             }

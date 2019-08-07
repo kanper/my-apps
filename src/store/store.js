@@ -63,6 +63,9 @@ export default new Vuex.Store({
         clearAlerts(state) {
             state.snackbarInformationVisible = false;
             state.alerts = [];
+        },
+        emptyDataTable(state){
+            state.dataTable = [];
         }
     },
     actions: {
