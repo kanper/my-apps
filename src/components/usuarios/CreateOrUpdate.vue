@@ -37,12 +37,46 @@
       </v-flex>
       <v-flex xs12 sm6>
         <v-text-field 
-        v-model="email" 
+        v-model="phone" 
         :rules="emailRules" 
-        label="E-mail" 
+        label="Numero Telefonico" 
         required 
         outlined
         ></v-text-field>
+      </v-flex>
+      <v-flex xs12 sm6>
+        <v-text-field 
+        v-model="email" 
+        :rules="emailRules" 
+        label="Email" 
+        required 
+        outlined
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12 sm6>
+        <v-text-field 
+        v-model="password" 
+        :rules="emailRules" 
+        label="Password" 
+        required 
+        outlined
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12 sm6>
+        <v-autocomplete
+          :items="states"
+          :filter="customFilter"
+          item-text="name"
+          label="Pais"
+        ></v-autocomplete>
+      </v-flex>
+      <v-flex xs12 sm6>
+        <v-autocomplete
+          :items="states"
+          :filter="customFilter"
+          item-text="name"
+          label="Rol"
+        ></v-autocomplete>
       </v-flex>
     </v-layout>
   </v-container>

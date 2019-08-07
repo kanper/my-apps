@@ -6,7 +6,6 @@ import objetivoService from '../services/ObjetivoService'
 import usuarioService from '../services/UsuarioService'
 
 //let apiUrl = 'https://localhost:44320/';
-//let apiUrl = 'http://127.0.0.1:5000/';
 let apiUrl = 'http://localhost:5000/';
 
 
