@@ -1,9 +1,16 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <v-dialog fullscreen persistent v-model="visibleNewDialog">
+    <v-dialog fullscreen v-model="visibleNewDialog" hide-overlay transition="dialog-bottom-transition">
         <v-card>
-            <v-card-title class="headline grey darken-3 white--text">Formulario de {{modelSpecification.modelTitle}}:
-                Agregar nuevo
-            </v-card-title>
+            <v-toolbar dark color="black">
+                <v-btn icon dark @click="changeNewDialogVisibility">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <v-toolbar-title>Formulario de {{modelSpecification.modelTitle}}: Agregar nuevo</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                    <v-btn dark flat @click="save()">Guardar</v-btn>
+                </v-toolbar-items>
+            </v-toolbar>
             <v-card-text>
                 <v-container grid-list-md>
                     <v-layout row wrap>
