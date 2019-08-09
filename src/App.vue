@@ -52,7 +52,6 @@
                         title: 'Usuarios',
                         icon: 'mdi-account-circle',
                         children: [
-                            //{ icon:'mdi-plus-box', title:'Agregar', path:'/usuarios/add' },
                             {icon: 'mdi-format-list-bulleted', title: 'Listar', path: '/usuarios'},
                         ]
                     },

@@ -45,9 +45,8 @@
                 <v-spacer></v-spacer>
                 <v-text-field v-model="search" append-icon="mdi-search-web" label="Search" single-line hide-details></v-text-field>
               </v-card-title>
-              <v-data-table :headers="headers" :items="desserts" :search="search" select-all>
+              <v-data-table :headers="headers" :items="desserts" :search="search">
                 <template v-slot:items="props">
-                  <td><v-checkbox v-model="props.selected" primary hide-details></v-checkbox></td>
                   <td>{{ props.item.nombrePais }}</td>
                   <td>{{ props.item.siglaPais }}</td>
                   <td class="justify-center layout px-0">

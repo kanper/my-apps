@@ -23,4 +23,8 @@ export default class ProyectoHelperService {
     getSocios(){
         return this.Axios.get(`${this.BaseUrl}socio`);
     }
+
+    getRoles(){
+        return this.Axios.get(`${this.BaseUrl}rol`);
+    }
 }

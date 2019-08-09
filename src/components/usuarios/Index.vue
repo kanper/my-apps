@@ -1,130 +1,110 @@
 <template>
-  <div>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>Usuario</v-toolbar-title>
-      <v-divider class="mx-2" inset vertical></v-divider>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" dark class="mb-2" @click="$router.push('/usuarios/add')">Agregar</v-btn>
-    </v-toolbar>
-    <v-container>
-      <v-layout>
-        <v-flex>
-            <v-card>
-              <v-card-title>
-                <v-spacer></v-spacer>
-                <v-text-field v-model="search" append-icon="mdi-search-web" label="Search" single-line hide-details></v-text-field>
-              </v-card-title>
-              <v-data-table :headers="headers" :items="desserts" :search="search">
-                <template v-slot:items="props">
-                  <td>{{ props.item.nombrePersonal }}</td>
-                  <td>{{ props.item.apellidoPersonal }}</td>
-                  <td>{{ props.item.cargo }}</td>
-                  <td>{{ props.item.username }}</td>
-                  <td>{{ props.item.name }}</td>
-                  <td class="justify-center layout px-0">
-                  <v-btn flat icon> <v-icon @click="get(props.item)">mdi-pencil</v-icon></v-btn>
-                  <v-btn flat icon> <v-icon ml-2 @click="deleteItem(props.item.id)">mdi-delete</v-icon></v-btn>
-                  </td>
-                </template>
-                <template v-slot:no-results>
-                  <v-alert :value="true" color="error" icon="mdi-sign-caution">
-                    Su busqueda de "{{ search }}" no encontro resultados.
-                  </v-alert>
-                </template>
-              </v-data-table>
-            </v-card>
-        </v-flex>
-      </v-layout>
-      <v-snackbar v-model="snackbar">
-        {{ mensaje }}
-        <v-btn color="pink" flat @click="snackbar = false">Cerrar</v-btn>
-      </v-snackbar>
-      <v-snackbar v-model="snackbarEliminar" top multi-line color="info">
-        ¿Esta seguro de querer eliminar el Usuario?
-        <v-btn color="success" @click="remove()">
-          Aceptar
-        </v-btn>
-        <v-btn color="warning" @click="snackbarEliminar = false">
-          Cancelar
-        </v-btn>
-      </v-snackbar>
-    </v-container>
-  </div>
+    <div>
+        <TitleBar/>
+        <AppAlert/>
+        <v-container>
+            <v-layout>
+                <v-flex>
+                    <DataTable :headers="dataTableHeaders" :options="dataTableOptions"/>
+                </v-flex>
+            </v-layout>
+        </v-container>
+        <DataInfo/>
+        <FormNew />
+        <FormEdit />
+        <DeleteDialog/>
+        <InfoSnackbar/>
+    </div>
 </template>
 
 <script>
-  export default {
-    name: "UsuarioIndex",
-    data () {
-      return {
-        dialog: false,
-        search: '',
-        snackbar: false,
-        snackbarEliminar: false,
-        mensaje: '',
-        headers: [
-          {
-            text: 'Nombre',
-            align: 'center',
-            sortable: true,
-            value: 'Nombre'
-          },
-          { text: 'Apellido', value: 'Apellido' },
-          { text: 'Cargo', value: 'Cargo' },
-          { text: 'UserName', value: 'UserName' },
-          { text: 'Rol', value: 'Rol' },
-          { text: 'Opciones', value: 'name', sortable: true, align: 'center' },
-        ],
-        desserts: [],
-        editedIndex: -1,
-        editedItem: {
-          id: 0,
-          nombrePersonal: '',
-          apellidoPersonal: '',
-          cargo: '',
-          username: '',
-          name: ''
+    import {mapMutations} from 'vuex'
+    import InfoSnackbar from '../common/SnackbarInfo'
+    import TitleBar from '../common/NavbarTitle'
+    import DeleteDialog from '../common/DialogDelete'
+    import FormEdit from './CardEdit'
+    import DataInfo from '../common/CardInfo'
+    import AppAlert from '../common/Alert'
+    import DataTable from '../common/DataTable'
+    import FormNew from './CardNew'
+
+    export default {
+        components: {
+            InfoSnackbar,
+            DeleteDialog,
+            DataTable,
+            TitleBar,
+            AppAlert,
+            FormEdit,
+            DataInfo,
+            FormNew
         },
-      }
-    },
-    created() {
-      let self = this;
-      self.getAll();
-    },
-    methods: {
-      getAll() {
-        let self = this;
-        self.$store.state.services.usuarioService
-        .getAll()
-        .then(r => {
-          self.desserts = r.data;
-        })
-        .catch(r => {
-          this.snackbar = true;
-          this.mensaje = 'Error al obtener datos';
-        });
-      },
-      get (id) {
-          this.editedIndex = this.desserts.indexOf(id)
-          this.editedItem = Object.assign({}, id)
-          this.dialog = true
-      },
-      deleteItem (id) {
-        this.snackbarEliminar = true;
-        this.editedIndex = id;
-      },
-      remove(){
-        this.$store.state.services.usuarioService
-        .remove(this.editedIndex)
-        .then( response => {
-          this.getAll();
-          this.snackbarEliminar = false;
-          this.snackbar = true;
-          this.mensaje = 'Usuario eliminado Correctamente';
-          this.editedIndex = -1;
-        })
-        .catch(() => {});
-      },
-    }
-  };
+        name: "usuario-index",
+        data() {
+            return {
+                model: {
+                    modelName: 'usuario',                              //Nombre del modelo actual
+                    modelIcon: 'mdi-account-circle',    //Icono que se muestra en representación del modelo
+                    modelTitle: 'Usuarios',                            //Nombre que se muestra en representación del modelo
+                    modelPath: '',                                      //URL que junto a la BASE es la ruta al servidor
+                    modelService: 'usuarioService',                    //Nombre del servicio a utilizar
+                    modelPK: 'id',                          //Llave primaria del modelo
+                    modelStamp: 'nombrePersonal',                       //Valor único representativo del modelo
+                    modelInfo: [                                        //Valores a mostrar para la información del modelo
+                        {
+                            name: 'Nombre',
+                            value: 'nombrePersonal'
+                        },
+                        { name: 'Apellido', value: 'apellidoPersonal'},
+                        { name: 'Fecha Afilacion', value: 'fechaAfilacion'},
+                        { name: 'Cargo', value: 'cargo'},
+                        { name: 'Email', value: 'email'},
+                        { name: 'Telefono', value: 'phoneNumber'},
+                        { name: 'Contraseña', value: 'passwordHash'},
+                        { name: 'Pais', value: 'pais'},
+                        { name: 'Estado', value: 'deleted'},
+                    ],
+                    modelParams: {                                         //Parametros para el modelo
+                    }
+                },
+                dataTableHeaders: [
+                    {
+                        text: 'Nombre',   //Texto a mostrar en la cabecera de la columna
+                        align: 'left',      //Alineación del contenido en la columna
+                        value: 'nombrePersonal',    //Nombre del atributo que se colocara en la columna
+                        width: '25%',       //Tamaño de la columna
+                        type: 'text'        //Tipo del contenido a mostrar en la columna
+                    },
+                    {text: 'Apellido', align: 'center', value: 'apellidoPersonal', type: 'text'},
+                    {text: 'Cargo', align: 'center', value: 'cargo', type: 'text'},
+                    {text: 'Telefono', align: 'center', value: 'phoneNumber', type: 'text'},
+                    {text: 'Correo', align: 'center', value: 'email', type: 'email'},
+                    {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}
+                ],
+                dataTableOptions: [
+                    {
+                        text: 'Información',                //Texto que se muestra para el boton
+                        type: 'info',                       //Tipo de boton [info|new|edit|delete|redirect]
+                        icon: 'mdi-information-outline',    //Icono que se muestra para el boton
+                        action: '',                         //Acción personalizada
+                        class: 'mr-2',                      //Clase a agregar
+                        route: '',                          //Ruta a redirigir
+                        params: {}                          //Parametros para la ruta a redirigir
+                    },
+                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: ''},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: ''},
+                ],
+            }
+        },
+        methods: {
+            ...mapMutations(['defineModel','clearAlerts','emptyDataTable']),
+        },
+        created() {
+            this.clearAlerts();
+            this.defineModel(this.model);
+        },
+        destroyed() {
+            this.emptyDataTable();
+        }
+    };
 </script>
