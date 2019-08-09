@@ -39,46 +39,31 @@
             DataInfo,
             FormNew
         },
-        name: "objetivo-index",
+        name: "nivel-impacto-index",
         data() {
             return {
                 model: {
-                    modelName: 'proyecto',                              //Nombre del modelo actual
-                    modelIcon: 'mdi-briefcase',    //Icono que se muestra en representación del modelo
-                    modelTitle: 'Proyectos',                            //Nombre que se muestra en representación del modelo
-                    modelPath: '',                                      //URL que junto a la BASE es la ruta al servidor
-                    modelService: 'proyectoService',                    //Nombre del servicio a utilizar
-                    modelPK: 'id',                          //Llave primaria del modelo
-                    modelStamp: 'nombreProyecto',                       //Valor único representativo del modelo
-                    modelInfo: [                                        //Valores a mostrar para la información del modelo
-                        {
-                            name: 'Nombre proyecto',
-                            value: 'nombreProyecto'
-                        },
-                        { name: 'Estado', value: 'estadoProyecto'},
-                        { name: 'Fecha Aprobación', value: 'fechaAprobacion'},
-                        { name: 'Fecha Inicio', value: 'fechaInicio'},
-                        { name: 'Fecha Fin', value: 'fechaFin'},
-                        { name: 'Beneficiarios', value: 'beneficiarios'},
-                        { name: 'Monto proyecto', value: 'montoProyecto'},
+                    modelName: 'nivelImpacto',                              //Nombre del modelo actual
+                    modelIcon: 'mdi-chart-line',                         //Icono que se muestra en representación del modelo
+                    modelTitle: 'Niveles de impacto',                       //Nombre que se muestra en representación del modelo
+                    modelPath: '',                                        //URL que junto a la BASE es la ruta al servidor
+                    modelService: 'nivelImpactoService',                    //Nombre del servicio a utilizar
+                    modelPK: 'id',                                        //Llave primaria del modelo
+                    modelStamp: 'nombreNivel',                                 //Valor único representativo del modelo
+                    modelInfo: [                                          //Valores a mostrar para la información del modelo
+                        { name: 'Nombre', value: 'nombreNivel'}
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }
                 },
                 dataTableHeaders: [
                     {
-                        text: 'Nombre',   //Texto a mostrar en la cabecera de la columna
+                        text: 'Nombre Nivel',   //Texto a mostrar en la cabecera de la columna
                         align: 'left',      //Alineación del contenido en la columna
-                        value: 'nombreProyecto',    //Nombre del atributo que se colocara en la columna
-                        width: '25%',       //Tamaño de la columna
+                        value: 'nombreNivel',    //Nombre del atributo que se colocara en la columna
+                        width: '75%',       //Tamaño de la columna
                         type: 'text'        //Tipo del contenido a mostrar en la columna
                     },
-                    {text: 'Estado', align: 'center', value: 'estadoProyecto', type: 'text'},
-                    {text: 'Aprobación', align: 'center', value: 'fechaAprobacion', type: 'date'},
-                    {text: 'Inicio', align: 'center', value: 'fechaInicio', type: 'date'},
-                    {text: 'Final', align: 'center', value: 'fechaFin', type: 'date'},
-                    {text: 'Beneficiarios', align: 'center', value: 'beneficiarios', type: 'number'},
-                    {text: 'Monto', align: 'center', value: 'montoProyecto', type: 'money'},
                     {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}
                 ],
                 dataTableOptions: [

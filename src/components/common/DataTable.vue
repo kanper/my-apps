@@ -72,8 +72,8 @@
             },
             resumeLargeText(text) {
                 if (text !== undefined && text !== null) {
-                    if (text.length > 250) {
-                        return text.substring(0, 251).concat('...');
+                    if (text.length > 100) {
+                        return text.substring(0, 101).concat('...');
                     }
                 }
                 return text;
