@@ -27,7 +27,7 @@ export default class AbstractService {
     }
 
     remove(id, params) {
-        return this.axios.delete(`${this.baseUrl}-${id}`)
+        return this.axios.delete(`${this.baseUrl}/${id}`)
     }
 }
 

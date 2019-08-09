@@ -109,15 +109,6 @@
                         </v-flex>
                         <v-flex xs6>
                             <v-combobox
-                                    :items="estados"
-                                    item-text="nombre"
-                                    item-value="nombre"
-                                    label="Seleccione el estado del proyecto"
-                                    required
-                                    v-model="newModel.estadoProyecto"
-                                    :return-object="false"
-                            ></v-combobox>
-                            <v-combobox
                                     :items="paises"
                                     item-text="nombre"
                                     label="Seleccione uno o varios paises"
@@ -177,7 +168,6 @@
                 paises: [],
                 organizaciones: [],
                 socios: [],
-                estados: [],
                 datePickInicio: false,
                 datePickFin : false,
                 datePickApro: false
@@ -196,6 +186,7 @@
                             this.services[this.modelSpecification.modelService].add(this.newModel, this.modelSpecification.modelParams)
                                 .then(r => {
                                     this.loadDataTable();
+                                    this.clearForm();
                                     if (r.data) {
                                         this.addAlert({
                                             value: true,
@@ -223,18 +214,25 @@
                     .catch(e => {
                         this.showInfo(e.toString());
                     });
+            },
+            clearForm(){
+                this.newModel.nombreProyecto = '';
+                this.newModel.montoProyecto = 0.0;
+                this.newModel.beneficiarios = 0;
+                this.newModel.estadoProyecto = '';
+                this.newModel.fechaInicio = new Date().toISOString().substr(0, 10);
+                this.newModel.fechaFin = new Date().toISOString().substr(0, 10);
+                this.newModel.fechaAprobacion = new Date().toISOString().substr(0, 10);
+                this.newModel.paises = [];
+                this.newModel.socios = [];
+                this.newModel.organizaciones = [];
+                this.$validator.reset();
             }
         },
         created() {
             this.services.proyectoHelperService.getPaises()
                 .then(r => {
                     this.paises = r.data;
-                }).catch(e => {
-                this.showInfo(e.toString());
-            });
-            this.services.proyectoHelperService.getEstados()
-                .then(r => {
-                    this.estados = r.data
                 }).catch(e => {
                 this.showInfo(e.toString());
             });

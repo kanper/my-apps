@@ -9,10 +9,15 @@
                     <v-layout wrap>
                         <v-flex xs12>
                             <form>
-                                <v-textarea :counter="500" :error-messages="errors.collect('nombre')" auto-grow box
-                                            clearable data-vv-name="nombre" label="Nombre *" required
-                                            v-model="newModel.nombreResultado" v-validate="'required|max:500'"
-                                ></v-textarea>
+                                <v-text-field
+                                        v-model="newModel.nombreFuente"
+                                        v-validate="'required|max:50'"
+                                        :counter="50"
+                                        :error-messages="errors.collect('nombreFuente')"
+                                        label="Nombre fuente de datos"
+                                        data-vv-name="nombreFuente"
+                                        required
+                                ></v-text-field>
                             </form>
                         </v-flex>
                     </v-layout>
@@ -36,7 +41,7 @@
             return {
                 newModel: {
                     id: 0,
-                    nombreResultado: ''
+                    nombreFuente: ''
                 }
             }
         },
@@ -83,7 +88,7 @@
                     });
             },
             clearForm(){
-                this.newModel.nombreResultado = '';
+                this.newModel.nombreFuente = '';
                 this.$validator.reset();
             }
         }

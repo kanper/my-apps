@@ -10,6 +10,9 @@ import actividadService from '../services/ActividadService'
 import indicadorService from '../services/IndicadorService'
 import proyectoService from '../services/ProyectoService'
 import proyectoHelperService from '../services/ProyectoHelperService'
+import fuenteDatoService from '../services/FuenteDatoService'
+import desagregacionService from '../services/DesagregacionService'
+import nivelImpactoService from '../services/NivelImpactoService'
 import usuarioService from '../services/UsuarioService'
 
 //let apiUrl = 'https://localhost:44320/';
@@ -30,5 +33,8 @@ export default {
     indicadorService: new indicadorService(Axios, apiUrl),
     proyectoService: new proyectoService(Axios, apiUrl),
     proyectoHelperService: new proyectoHelperService(Axios, apiUrl),
+    fuenteDatoService: new fuenteDatoService(Axios, apiUrl),
+    desagregacionService: new desagregacionService(Axios, apiUrl),
+    nivelImpactoService: new nivelImpactoService(Axios, apiUrl),
     usuarioService: new usuarioService(Axios, apiUrl)
 }
