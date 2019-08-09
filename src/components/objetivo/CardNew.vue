@@ -53,6 +53,7 @@
                             this.services[this.modelSpecification.modelService].add(this.newModel, this.modelSpecification.modelParams)
                                 .then(r => {
                                     this.loadDataTable();
+                                    this.clearForm();
                                     if (r.data) {
                                         this.addAlert({
                                             value: true,
@@ -80,6 +81,10 @@
                     .catch(e => {
                         this.showInfo(e.toString());
                     });
+            },
+            clearForm(){
+                this.newModel.nombre = '';
+                this.$validator.reset();
             }
         }
     }

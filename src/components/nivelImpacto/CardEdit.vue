@@ -1,18 +1,23 @@
 <template>
-    <v-dialog max-width="50%" persistent v-model="visibleNewDialog">
+    <v-dialog max-width="50%" persistent v-model="visibleEditDialog">
         <v-card>
             <v-card-title class="headline grey darken-3 white--text">Formulario de {{modelSpecification.modelTitle}}:
-                Agregar nuevo
+                Editar registro
             </v-card-title>
             <v-card-text>
                 <v-container grid-list-md>
                     <v-layout wrap>
                         <v-flex xs12>
                             <form>
-                                <v-textarea :counter="500" :error-messages="errors.collect('nombre')" auto-grow box
-                                            clearable data-vv-name="nombre" label="Nombre *" required
-                                            v-model="newModel.nombreResultado" v-validate="'required|max:500'"
-                                ></v-textarea>
+                                <v-text-field
+                                        v-model="CRUDModel.nombreNivel"
+                                        v-validate="'required|max:100'"
+                                        :counter="100"
+                                        :error-messages="errors.collect('nombreNivel')"
+                                        label="Nombre Nivel"
+                                        data-vv-name="nombreNivel"
+                                        required
+                                ></v-text-field>
                             </form>
                         </v-flex>
                     </v-layout>
@@ -21,8 +26,8 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="changeNewDialogVisibility" color="gray darken-1" flat>Cancelar</v-btn>
-                <v-btn @click="save()" color="green darken-1" flat>Guardar</v-btn>
+                <v-btn @click="changeEditDialogVisibility" color="gray darken-1" flat>Cancelar</v-btn>
+                <v-btn @click="update()" color="blue darken-1" flat>Actualizar</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -33,33 +38,27 @@
 
     export default {
         data() {
-            return {
-                newModel: {
-                    id: 0,
-                    nombreResultado: ''
-                }
-            }
+            return {}
         },
         computed: {
-            ...mapState(['modelSpecification', 'visibleNewDialog', 'services'])
+            ...mapState(['modelSpecification', 'visibleEditDialog', 'CRUDModel', 'services'])
         },
         methods: {
-            ...mapMutations(['changeNewDialogVisibility', 'closeAllDialogs', 'showInfo', 'addAlert']),
+            ...mapMutations(['changeEditDialogVisibility', 'closeAllDialogs', 'showInfo', 'addAlert']),
             ...mapActions(['loadDataTable']),
-            save() {
+            update() {
                 this.$validator.validateAll()
                     .then(v => {
                         if (v) {
-                            this.services[this.modelSpecification.modelService].add(this.newModel, this.modelSpecification.modelParams)
+                            this.services[this.modelSpecification.modelService].update(this.CRUDModel, this.CRUDModel[this.modelSpecification.modelPK], this.modelSpecification.modelParams)
                                 .then(r => {
                                     this.loadDataTable();
-                                    this.clearForm();
                                     if (r.data) {
                                         this.addAlert({
                                             value: true,
                                             color: 'success',
                                             icon: 'mdi-checkbox-marked-circle-outline',
-                                            text: 'El nuevo ' + this.modelSpecification.modelName + ' se guardo correctamente.'
+                                            text: 'El ' + this.modelSpecification.modelName + ' seleccionado se guardo correctamente.'
                                         });
                                     } else {
                                         this.addAlert({
@@ -81,10 +80,6 @@
                     .catch(e => {
                         this.showInfo(e.toString());
                     });
-            },
-            clearForm(){
-                this.newModel.nombreResultado = '';
-                this.$validator.reset();
             }
         }
     }

@@ -2,7 +2,7 @@
     <v-app>
         <v-toolbar app class="blue-grey darken-4" dark>
             <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-            <v-img max-height="30" max-width="100" src="logo1.png"></v-img>
+            <v-img max-height="30" max-width="100" src="logo1.png" ></v-img>
         </v-toolbar>
         <v-navigation-drawer absolute app dark temporary v-model="drawer">
             <v-toolbar class="transparent" flat>
@@ -60,9 +60,12 @@
                         title: 'Administración de Catalogos',
                         icon: 'mdi-view-dashboard',
                         children: [
-                            {icon: 'mdi-format-list-bulleted', title: 'Organizaciones', path: '/organizaciones'},
-                            {icon: 'mdi-format-list-bulleted', title: 'Socios', path: '/socios'},
-                            {icon: 'mdi-format-list-bulleted', title: 'País', path: '/paises'},
+                            {icon: 'mdi-city', title: 'Organizaciones', path: '/organizaciones'},
+                            {icon: 'mdi-account-multiple-outline', title: 'Socios', path: '/socios'},
+                            {icon: 'mdi-map-marker-radius', title: 'País', path: '/paises'},
+                            {icon: 'mdi-open-in-app', title: 'Fuentes de datos', path: '/fuente-datos'},
+                            {icon: 'mdi-chart-line', title: 'Nivel de impacto', path: '/niveles-impacto'},
+                            {icon: 'mdi-arrange-send-backward', title: 'Desagregaciones', path: '/desagregaciones'}
                         ]
                     },
                     {
