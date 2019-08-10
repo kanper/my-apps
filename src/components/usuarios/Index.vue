@@ -58,11 +58,12 @@
                         { name: 'Apellido', value: 'apellidoPersonal'},
                         { name: 'Fecha Afilacion', value: 'fechaAfilacion'},
                         { name: 'Cargo', value: 'cargo'},
-                        { name: 'Email', value: 'email'},
+                        { name: 'email', value: 'email'},
                         { name: 'Telefono', value: 'phoneNumber'},
-                        { name: 'Contraseña', value: 'passwordHash'},
+                        { name: 'Contraseña', value: 'password'},
                         { name: 'Pais', value: 'pais'},
                         { name: 'Estado', value: 'deleted'},
+                        { name: 'Name', value: 'name'},
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }
@@ -78,7 +79,7 @@
                     {text: 'Apellido', align: 'center', value: 'apellidoPersonal', type: 'text'},
                     {text: 'Cargo', align: 'center', value: 'cargo', type: 'text'},
                     {text: 'Telefono', align: 'center', value: 'phoneNumber', type: 'text'},
-                    {text: 'Correo', align: 'center', value: 'email', type: 'email'},
+                    {text: 'Correo', align: 'center', value: 'email', type: 'text'},
                     {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}
                 ],
                 dataTableOptions: [

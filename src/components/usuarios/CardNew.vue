@@ -21,42 +21,41 @@
           <v-layout row wrap>
             <v-flex xs6>
               <v-text-field
-                :error-messages="errors.collect('nombrePersonal')"
-                :counter="30"
+                :error-messages="errors.collect('nombre')"
+                :counter="50"
                 data-vv-name="nombrePersonal"
-                label="Nombres"
+                label="Nombres *"
                 required
                 v-model="newModel.nombrePersonal"
-                v-validate="'required|min_value:5'"
+                v-validate="'required|max:50'"
+                outlined
               ></v-text-field>
               <v-text-field
                 :error-messages="errors.collect('apellidoPersonal')"
-                :counter="30"
+                :counter="50"
                 data-vv-name="apellidoPersonal"
-                label="Apellidos"
+                label="Apellidos *"
                 required
                 v-model="newModel.apellidoPersonal"
-                v-validate="'required|min_value:5'"
+                v-validate="'required|max:50'"
               ></v-text-field>
               <v-spacer></v-spacer>
-            </v-flex>
-            <v-flex xs6>
               <v-text-field
                 :error-messages="errors.collect('cargo')"
-                :counter="30"
+                :counter="50"
                 data-vv-name="cargo"
-                label="Cargo"
+                label="Cargo *"
                 required
                 v-model="newModel.cargo"
-                v-validate="'required|min_value:0'"
+                v-validate="'required|max:50'"
               ></v-text-field>
               <v-text-field
                 :error-messages="errors.collect('phoneNumber')"
                 data-vv-name="phoneNumber"
-                label="Telefono"
+                label="Telefono *"
                 required
                 v-model="newModel.phoneNumber"
-                v-validate="'required|min_value:0'"
+                :rules="phoneRules"
               ></v-text-field>
             </v-flex>
             <v-spacer></v-spacer>
@@ -64,35 +63,36 @@
               <v-text-field
                 :error-messages="errors.collect('email')"
                 data-vv-name="email"
-                label="Correo"
+                label="Correo *"
                 required
                 v-model="newModel.email"
-                v-validate="'required|min_value:0'"
+                :rules="emailRules"
               ></v-text-field>
               <v-text-field
-                :error-messages="errors.collect('passwordHash')"
-                data-vv-name="passworHash"
-                label="Contraseña"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :error-messages="errors.collect('password')"
+                :type="show1 ? 'text' : 'password'"
+                hint="al menos 8 caracteres"
+                data-vv-name="password"
+                label="Contraseña *"
                 required
-                v-model="newModel.passworHash"
-                v-validate="'required|min_value:0'"
+                @click:append="show1 = !show1"
+                v-model="newModel.password"
+                v-validate="'required|min:8'"
               ></v-text-field>
-            </v-flex>
               <v-spacer></v-spacer>
-            <v-flex xs6>
               <v-combobox
                 :items="roles"
-                item-text="name"
-                item-value="name"
-                label="Seleccione el rol del usuario"
+                item-text="nombre"
+                label="Seleccione el rol del usuario *"
                 required
-                v-model="newModel.role"
+                v-model="newModel.name"
                 :return-object="false"
               ></v-combobox>
               <v-combobox
                 :items="paises"
                 item-text="nombre"
-                label="Seleccione un pais"
+                label="Seleccione un pais *"
                 required
                 v-model="newModel.pais"
                 :return-object="false"
@@ -123,12 +123,21 @@ export default {
         apellidoPersonal: "",
         cargo: "",
         email: "",
-        passworHash: "",
+        password: "",
         phoneNumber: "",
         fechaAfilacion: new Date().toISOString().substr(0, 10),
         pais: "",
-        rol: "",
+        name: "",
       },
+      emailRules: [
+        v => !!v || 'E-mail es Obligatorio',
+        v => /.+@.+\..+/.test(v) || 'E-mail debe ser valido',
+      ],
+      phoneRules: [
+        v => !!v || 'Telefono es Obligatorio',
+        v => /\(([0-9]{3})\)([ ])([0-9]{4})+-.+[0-9]{3}/.test(v) || 'Telefono debe ser valido',
+      ],
+      show1: false,
       paises: [],
       roles: [],
       datePickInicio: false,
