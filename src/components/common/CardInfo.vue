@@ -5,19 +5,21 @@
                 Información
             </v-card-title>
             <v-card-text>
-                <v-list :dense="true" :expand="true" three-line>
-                    <v-list-tile avatar ripple v-bind:data="item.value" v-bind:key="item.name"
-                                 v-for="item in modelSpecification.modelInfo">
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{item.name}}</v-list-tile-title>
-                            <v-list-tile-sub-title>{{ CRUDModel[item.value] }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon color="grey lighten-1">mdi-archive</v-icon>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-                </v-list>
+                <v-container fluid grid-list-lg>
+                    <v-layout row wrap>
+                        <v-flex xs12
+                                v-for="item in modelSpecification.modelInfo"
+                                v-bind:key="item.name"
+                                v-bind:data="item"
+                        >
+                            <InfoItem
+                                    :name="item.name"
+                                    :value="item.value"
+                                    :itemType="item.type"
+                            />
+                        </v-flex>
+                    </v-layout>
+                </v-container>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -29,8 +31,11 @@
 
 <script>
     import {mapMutations, mapState} from 'vuex'
-
+    import InfoItem from './InfoItem'
     export default {
+        components:{
+          InfoItem
+        },
         computed: {
             ...mapState(['modelSpecification', 'visibleInfoDialog', 'CRUDModel'])
         },

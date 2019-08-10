@@ -152,9 +152,6 @@
     export default {
         data() {
             return {
-                approvedDate: new Date().toISOString().substr(0, 10),
-                startDate: new Date().toISOString().substr(0, 10),
-                endDate: new Date().toISOString().substr(0, 10),
                 paises: [],
                 organizaciones: [],
                 socios: [],
@@ -164,15 +161,45 @@
             }
         },
         computed: {
-            ...mapState(['modelSpecification', 'visibleEditDialog', 'CRUDModel', 'services'])
+            ...mapState(['modelSpecification', 'visibleEditDialog', 'CRUDModel', 'services']),
+            approvedDate: {
+                get: function () {
+                    if(this.CRUDModel.fechaAprobacion === undefined){
+                        return new Date().toISOString().substr(0, 10);
+                    }
+                    return this.CRUDModel.fechaAprobacion.split('T')[0];
+                },
+                set: function (newValue) {
+                    this.CRUDModel.fechaAprobacion = newValue;
+                }
+            },
+            startDate: {
+                get: function () {
+                    if (this.CRUDModel.fechaInicio === undefined){
+                        return new Date().toISOString().substr(0, 10);
+                    }
+                    return this.CRUDModel.fechaInicio.split('T')[0];
+                },
+                set: function (newValue) {
+                    this.CRUDModel.fechaInicio = newValue;
+                }
+            },
+            endDate: {
+                get: function () {
+                    if (this.CRUDModel.fechaFin === undefined) {
+                        return new Date().toISOString().substr(0, 10);
+                    }
+                    return this.CRUDModel.fechaFin.split('T')[0];
+                },
+                set: function (newValue) {
+                    this.CRUDModel.fechaFin = newValue;
+                }
+            }
         },
         methods: {
             ...mapMutations(['changeEditDialogVisibility', 'closeAllDialogs', 'showInfo', 'addAlert']),
             ...mapActions(['loadDataTable']),
             update() {
-                this.CRUDModel.fechaAprobacion = this.approvedDate;
-                this.CRUDModel.fechaInicio = this.startDate;
-                this.CRUDModel.fechaFin = this.endDate;
                 this.$validator.validateAll()
                     .then(v => {
                         if (v) {
