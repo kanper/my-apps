@@ -51,7 +51,7 @@
                     modelPK: 'id',                                        //Llave primaria del modelo
                     modelStamp: 'nombreDesagregacion',                                 //Valor único representativo del modelo
                     modelInfo: [                                          //Valores a mostrar para la información del modelo
-                        { name: 'Nombre', value: 'nombreDesagregacion'}
+                        { name: 'Nombre', value: 'nombreDesagregacion', type: 'text'}
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }

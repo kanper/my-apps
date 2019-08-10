@@ -53,10 +53,11 @@
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
                             name: 'Actividad',
-                            value: 'nombreActividad'
+                            value: 'nombreActividad',
+                            type: 'text'
                         },
-                        {name: 'Resultado', value: 'nombreResultado'},
-                        {name: 'Objetivo', value: 'nombreObjetivo'}
+                        {name: 'Resultado', value: 'nombreResultado', type: 'text'},
+                        {name: 'Objetivo', value: 'nombreObjetivo', type: 'text'}
                     ],
                     modelParams: {                                         //Parametros para el modelo
                         id: this.$route.params.id

@@ -51,7 +51,7 @@
                     modelPK: 'id',                                        //Llave primaria del modelo
                     modelStamp: 'nombreFuente',                                 //Valor único representativo del modelo
                     modelInfo: [                                          //Valores a mostrar para la información del modelo
-                        { name: 'Nombre', value: 'nombreFuente'}
+                        { name: 'Nombre', value: 'nombreFuente', type: 'text'}
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }

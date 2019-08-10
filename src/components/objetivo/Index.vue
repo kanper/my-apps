@@ -53,7 +53,8 @@
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
                             name: 'Nombre objetivo',
-                            value: 'nombre'
+                            value: 'nombre',
+                            type: 'text'
                         }
                     ],
                     modelParams: {                                         //Parametros para el modelo

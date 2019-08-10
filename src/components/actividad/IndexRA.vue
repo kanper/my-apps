@@ -56,7 +56,8 @@
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
                             name: 'Nombre actividad',
-                            value: 'nombreActividad'
+                            value: 'nombreActividad',
+                            type: 'text'
                         }
                     ],
                     modelParams: {                                         //Parametros para el modelo
