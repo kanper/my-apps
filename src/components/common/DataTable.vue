@@ -79,12 +79,10 @@
                 return text;
             },
             formatDate(text){
-                let date = text.split('T')[0];
-                return date;
+                return text.split('T')[0];
             },
             formatTime(text){
-                let time = text.split('T')[1];
-                return time;
+                return text.split('T')[1];
             },
             formatDateTime(text){
                 let datetime = text.split('T');

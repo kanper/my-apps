@@ -48,11 +48,11 @@
                     modelPK: 'id',                          //Llave primaria del modelo
                     modelStamp: 'nombreIndicador',                       //Valor único representativo del modelo
                     modelInfo: [                                         //Valores a mostrar para la información del modelo
-                        {name: 'Meta', value: 'valorMeta'},
-                        {name: 'Indicador', value: 'nombreIndicador'},
-                        {name: 'Actividad', value: 'nombreActividad'},
-                        {name: 'Resultado', value: 'nombreResultado'},
-                        {name: 'Objetivo', value: 'nombreObjetivo'}
+                        {name: 'Meta', value: 'valorMeta', type: 'text'},
+                        {name: 'Indicador', value: 'nombreIndicador', type: 'text'},
+                        {name: 'Actividad', value: 'nombreActividad', type: 'text'},
+                        {name: 'Resultado', value: 'nombreResultado', type: 'text'},
+                        {name: 'Objetivo', value: 'nombreObjetivo', type: 'text'}
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }
@@ -68,7 +68,6 @@
                     {text: 'Resultado', align: 'left', value: 'nombreResultado', width: '20%', type: 'text'},
                     {text: 'Actividad', align: 'left', value: 'nombreActividad', width: '20%', type: 'text'},
                     {text: 'Indicador', align: 'left', value: 'nombreIndicador', width: '20%', type: 'text'},
-                    {text: 'Meta', align: 'center', value: 'valorMeta', width: '5%', type: 'number'},
                     {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}
                 ],
                 dataTableOptions: [

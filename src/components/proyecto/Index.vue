@@ -53,14 +53,18 @@
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
                             name: 'Nombre proyecto',
-                            value: 'nombreProyecto'
+                            value: 'nombreProyecto',
+                            type: 'text'
                         },
-                        { name: 'Estado', value: 'estadoProyecto'},
-                        { name: 'Fecha Aprobación', value: 'fechaAprobacion'},
-                        { name: 'Fecha Inicio', value: 'fechaInicio'},
-                        { name: 'Fecha Fin', value: 'fechaFin'},
-                        { name: 'Beneficiarios', value: 'beneficiarios'},
-                        { name: 'Monto proyecto', value: 'montoProyecto'},
+                        { name: 'Estado', value: 'estadoProyecto',type: 'text'},
+                        { name: 'Fecha Aprobación', value: 'fechaAprobacion', type: 'date'},
+                        { name: 'Fecha Inicio', value: 'fechaInicio', type: 'date'},
+                        { name: 'Fecha Fin', value: 'fechaFin', type: 'date'},
+                        { name: 'Beneficiarios', value: 'beneficiarios', type: 'number'},
+                        { name: 'Monto proyecto', value: 'montoProyecto', type: 'money'},
+                        { name: 'Paises', value: 'paises', type: 'array'},
+                        { name: 'Socios internacionales', value: 'socios', type: 'array'},
+                        { name: 'Organizaciones', value: 'organizaciones', type: 'array'},
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }
@@ -70,15 +74,13 @@
                         text: 'Nombre',   //Texto a mostrar en la cabecera de la columna
                         align: 'left',      //Alineación del contenido en la columna
                         value: 'nombreProyecto',    //Nombre del atributo que se colocara en la columna
-                        width: '25%',       //Tamaño de la columna
+                        width: '45%',       //Tamaño de la columna
                         type: 'text'        //Tipo del contenido a mostrar en la columna
                     },
                     {text: 'Estado', align: 'center', value: 'estadoProyecto', type: 'text'},
                     {text: 'Aprobación', align: 'center', value: 'fechaAprobacion', type: 'date'},
                     {text: 'Inicio', align: 'center', value: 'fechaInicio', type: 'date'},
                     {text: 'Final', align: 'center', value: 'fechaFin', type: 'date'},
-                    {text: 'Beneficiarios', align: 'center', value: 'beneficiarios', type: 'number'},
-                    {text: 'Monto', align: 'center', value: 'montoProyecto', type: 'money'},
                     {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}
                 ],
                 dataTableOptions: [

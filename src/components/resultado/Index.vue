@@ -50,9 +50,10 @@
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
                             name: 'Resultado',
-                            value: 'nombreResultado'
+                            value: 'nombreResultado',
+                            type: 'text'
                         },
-                        {name: 'Objetivo', value: 'nombreObjetivo'}
+                        {name: 'Objetivo', value: 'nombreObjetivo', type: 'text'}
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }
