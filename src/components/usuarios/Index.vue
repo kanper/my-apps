@@ -60,10 +60,8 @@
                         { name: 'Cargo', value: 'cargo'},
                         { name: 'email', value: 'email'},
                         { name: 'Telefono', value: 'phoneNumber'},
-                        { name: 'Contraseña', value: 'password'},
                         { name: 'Pais', value: 'pais'},
-                        { name: 'Estado', value: 'deleted'},
-                        { name: 'Name', value: 'name'},
+                        { name: 'Rol', value: 'name'},
                     ],
                     modelParams: {                                         //Parametros para el modelo
                     }

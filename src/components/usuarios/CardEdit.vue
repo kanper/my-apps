@@ -1,28 +1,102 @@
-<template>
-  <v-dialog max-width="50%" persistent v-model="visibleEditDialog">
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+  <v-dialog
+    fullscreen
+    v-model="visibleEditDialog"
+    hide-overlay
+    transition="dialog-bottom-transition"
+  >
     <v-card>
-      <v-card-title class="headline grey darken-3 white--text">
-        Formulario de {{modelSpecification.modelTitle}}:
-        Editar registro
-      </v-card-title>
+      <v-toolbar dark color="black">
+        <v-btn icon dark @click="changeEditDialogVisibility">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-toolbar-title>Formulario de {{modelSpecification.modelTitle}}: Editar Registro</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <v-btn dark flat @click="update()">Actualizar</v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
       <v-card-text>
         <v-container grid-list-md>
-          <v-layout wrap>
-            <v-flex xs12>
-              <form>
-                <v-textarea
-                  :counter="500"
-                  :error-messages="errors.collect('nombre')"
-                  auto-grow
-                  box
-                  clearable
-                  data-vv-name="nombre"
-                  label="Nombre *"
-                  required
-                  v-model="CRUDModel.nombre"
-                  v-validate="'required|max:500'"
-                ></v-textarea>
-              </form>
+          <v-layout row wrap>
+            <v-flex xs6>
+              <v-text-field
+                :error-messages="errors.collect('nombre')"
+                :counter="50"
+                data-vv-name="nombrePersonal"
+                label="Nombres *"
+                required
+                v-model="CRUDModel.nombrePersonal"
+                v-validate="'required|max:50'"
+                outlined
+              ></v-text-field>
+              <v-text-field
+                :error-messages="errors.collect('apellidoPersonal')"
+                :counter="50"
+                data-vv-name="apellidoPersonal"
+                label="Apellidos *"
+                required
+                v-model="CRUDModel.apellidoPersonal"
+                v-validate="'required|max:50'"
+              ></v-text-field>
+              <v-spacer></v-spacer>
+              <v-text-field
+                :error-messages="errors.collect('cargo')"
+                :counter="50"
+                data-vv-name="cargo"
+                label="Cargo *"
+                required
+                v-model="CRUDModel.cargo"
+                v-validate="'required|max:50'"
+              ></v-text-field>
+              <v-text-field
+                :error-messages="errors.collect('phoneNumber')"
+                data-vv-name="phoneNumber"
+                label="Telefono *"
+                required
+                v-model="CRUDModel.phoneNumber"
+                :rules="phoneRules"
+              ></v-text-field>
+            </v-flex>
+            <v-spacer></v-spacer>
+            <v-flex xs6>
+              <v-text-field
+                :error-messages="errors.collect('email')"
+                data-vv-name="email"
+                label="Correo *"
+                required
+                v-model="CRUDModel.email"
+                :rules="emailRules"
+              ></v-text-field>
+              <v-text-field
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :error-messages="errors.collect('password')"
+                :type="show1 ? 'text' : 'password'"
+                hint="al menos 8 caracteres"
+                data-vv-name="password"
+                label="Contraseña *"
+                required
+                @click:append="show1 = !show1"
+                v-model="CRUDModel.password"
+                v-validate="'required|min:8'"
+              ></v-text-field>
+              <v-spacer></v-spacer>
+              <v-combobox
+                :items="roles"
+                item-text="nombre"
+                label="Seleccione el rol del usuario *"
+                required
+                v-model="name"
+                :return-object="false"
+              ></v-combobox>
+              <v-combobox
+                :items="paises"
+                item-text="nombre"
+                label="Seleccione un pais *"
+                required
+                v-model="pais"
+                :return-object="false"
+              ></v-combobox>
             </v-flex>
           </v-layout>
         </v-container>
@@ -31,7 +105,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn @click="changeEditDialogVisibility" color="gray darken-1" flat>Cancelar</v-btn>
-        <v-btn @click="update()" color="blue darken-1" flat>Actualizar</v-btn>
+        <v-btn @click="update()" color="green darken-1" flat>Actualizar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -42,7 +116,19 @@ import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      paises: [],
+      roles: [],
+      show1: false,
+      emailRules: [
+        v => !!v || 'E-mail es Obligatorio',
+        v => /.+@.+\..+/.test(v) || 'E-mail debe ser valido',
+      ],
+      phoneRules: [
+        v => !!v || 'Telefono es Obligatorio',
+        v => /\(([0-9]{3})\)([ ])([0-9]{4})+-.+[0-9]{3}/.test(v) || 'Telefono debe ser valido',
+      ],
+    };
   },
   computed: {
     ...mapState([
@@ -50,7 +136,29 @@ export default {
       "visibleEditDialog",
       "CRUDModel",
       "services"
-    ])
+    ]),
+    pais: {
+      get: function () {
+          if(this.CRUDModel.pais === undefined){
+              //return new Date().toISOString().substr(0, 10);
+            }
+          return this.CRUDModel.pais;
+        },
+      set: function (newValue) {
+          this.CRUDModel.pais = newValue;
+        }
+      },
+    name: {
+      get: function () {
+          if(this.CRUDModel.name === undefined){
+              //return new Date().toISOString().substr(0, 10);
+            }
+          return this.CRUDModel.name;
+        },
+      set: function (newValue) {
+          this.CRUDModel.name = newValue;
+        }
+      },
   },
   methods: {
     ...mapMutations([
@@ -107,6 +215,22 @@ export default {
           this.showInfo(e.toString());
         });
     }
+  },
+  created() {
+    this.services.proyectoHelperService.getPaises()
+      .then(r => {
+        this.paises = r.data;
+      }).catch(e => {
+        this.showInfo(e.toString());
+      });
+    this.services.proyectoHelperService
+      .getRoles()
+      .then(r => {
+        this.roles = r.data;
+      })
+      .catch(e => {
+        this.showInfo(e.toString());
+      });
   }
 };
 </script>
