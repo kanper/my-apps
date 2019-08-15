@@ -37,18 +37,18 @@
             AppAlert,
             FormEdit,
             DataInfo,
-            FormNew
+            FormNew,
         },
         name: "objetivo-index",
         data() {
             return {
                 model: {
                     modelName: 'proyecto',                              //Nombre del modelo actual
-                    modelIcon: 'mdi-briefcase',    //Icono que se muestra en representación del modelo
+                    modelIcon: 'mdi-briefcase',                         //Icono que se muestra en representación del modelo
                     modelTitle: 'Proyectos',                            //Nombre que se muestra en representación del modelo
                     modelPath: '',                                      //URL que junto a la BASE es la ruta al servidor
                     modelService: 'proyectoService',                    //Nombre del servicio a utilizar
-                    modelPK: 'id',                          //Llave primaria del modelo
+                    modelPK: 'id',                                      //Llave primaria del modelo
                     modelStamp: 'nombreProyecto',                       //Valor único representativo del modelo
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
@@ -67,15 +67,16 @@
                         { name: 'Organizaciones', value: 'organizaciones', type: 'array'},
                     ],
                     modelParams: {                                         //Parametros para el modelo
+
                     }
                 },
                 dataTableHeaders: [
                     {
-                        text: 'Nombre',   //Texto a mostrar en la cabecera de la columna
-                        align: 'left',      //Alineación del contenido en la columna
-                        value: 'nombreProyecto',    //Nombre del atributo que se colocara en la columna
-                        width: '45%',       //Tamaño de la columna
-                        type: 'text'        //Tipo del contenido a mostrar en la columna
+                        text: 'Nombre',                      //Texto a mostrar en la cabecera de la columna
+                        align: 'left',                       //Alineación del contenido en la columna
+                        value: 'nombreProyecto',             //Nombre del atributo que se colocara en la columna
+                        width: '35%',                        //Tamaño de la columna
+                        type: 'text'                         //Tipo del contenido a mostrar en la columna
                     },
                     {text: 'Estado', align: 'center', value: 'estadoProyecto', type: 'text'},
                     {text: 'Aprobación', align: 'center', value: 'fechaAprobacion', type: 'date'},
@@ -90,11 +91,14 @@
                         icon: 'mdi-information-outline',    //Icono que se muestra para el boton
                         action: '',                         //Acción personalizada
                         class: 'mr-2',                      //Clase a agregar
-                        route: '',                          //Ruta a redirigir
-                        params: {}                          //Parametros para la ruta a redirigir
+                        route: '',
+                        show: (row) => {return true},       //Mostrar opción sí
                     },
-                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: ''},
-                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: ''},
+                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
+                    {text: 'Indicadores', type: 'redirect', icon: 'mdi-flag-triangle', action: '', class: 'mr-2', route: 'plan-index', show: (row) => {return true}},
+                    {text: 'Activar proyecto', type: 'link', icon: 'mdi-checkbox-marked-circle-outline', action: 'active', class: 'mr-2', route: '', show: (row) => {return row.isIncomplete}},
+                    {text: 'Cancelar proyecto', type: 'link', icon: 'mdi-close-circle-outline', action: 'cancel', class: 'mr-2', route: '', show: (row) => {return !row.isCancelled}},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: '', show: (row) => {return row.isCancelled}}
                 ],
             }
         },

@@ -83,11 +83,11 @@
                         action: '',                         //Acción personalizada
                         class: 'mr-2',                      //Clase a agregar
                         route: '',                          //Ruta a redirigir
-                        params: {}                          //Parametros para la ruta a redirigir
+                        show: (row) => {return true}
                     },
-                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', params: {}},
-                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: '', params: {}},
-                    {text: 'Actividades', type: 'redirect', icon: 'mdi-calendar-clock', action: '', class: 'mr-3', route: 'resultado-actividad-index', params: {}}
+                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
+                    {text: 'Actividades', type: 'redirect', icon: 'mdi-calendar-clock', action: '', class: 'mr-3', route: 'resultado-actividad-index', show: (row) => {return true}}
                 ],
                 bannerText: ''
             }

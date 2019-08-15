@@ -29,5 +29,9 @@ export default class AbstractService {
     remove(id, params) {
         return this.axios.delete(`${this.baseUrl}/${id}`)
     }
+
+    executeAction(id, action, params) {
+        return null;
+    }
 }
 

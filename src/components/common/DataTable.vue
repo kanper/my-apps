@@ -18,8 +18,8 @@
             <template v-slot:items="props">
                 <td :class="at['align'] === 'center' ? 'text-xs-center': 'text-xs-left'" v-for="at in headers">
                     {{buildTableCell(props.item,at)}}
-                    <TableOption :modelId="props.item.id" v-bind:data="item" v-bind:key="item.text"
-                                 v-for="item in options" v-if="at.value === 'action'"/>
+                    <TableOption :modelId="props.item[modelSpecification.modelPK]" v-bind:data="item" v-bind:key="item.text" :model="props.item"
+                                 v-for="item in options" v-if="at.value === 'action' && item.show(props.item)"/>
                 </td>
             </template>
             <template v-slot:no-results>
