@@ -15,9 +15,9 @@
                 <v-container grid-list-md>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <v-textarea :counter="100" :error-messages="errors.collect('nombre')" auto-grow box
+                            <v-textarea :counter="500" :error-messages="errors.collect('nombre')" auto-grow box
                                         clearable data-vv-name="nombre" label="Nombre *" required
-                                        v-model="CRUDModel.nombreProyecto" v-validate="'required|max:100'"
+                                        v-model="CRUDModel.nombreProyecto" v-validate="'required|max:500'"
                             ></v-textarea>
                         </v-flex>
                         <v-flex xs6>

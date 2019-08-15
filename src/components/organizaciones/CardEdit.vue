@@ -11,8 +11,8 @@
                             <form>
                                 <v-text-field
                                         v-model="CRUDModel.nombreOrganizacion"
-                                        v-validate="'required|max:50'"
-                                        :counter="50"
+                                        v-validate="'required|max:100'"
+                                        :counter="100"
                                         :error-messages="errors.collect('nombreOrganizacion')"
                                         label="Nombre Organizacion*"
                                         data-vv-name="nombreOrganizacion"

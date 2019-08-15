@@ -11,8 +11,8 @@
                             <form>
                                 <v-text-field
                                         v-model="newModel.nombreSocio"
-                                        v-validate="'required|max:50'"
-                                        :counter="50"
+                                        v-validate="'required|max:100'"
+                                        :counter="100"
                                         :error-messages="errors.collect('nombreSocio')"
                                         label="Nombre Socio*"
                                         data-vv-name="nombreSocio"

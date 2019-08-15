@@ -20,8 +20,8 @@
                                 ></v-text-field>
                                 <v-text-field
                                         v-model="newModel.siglaPais"
-                                        v-validate="'required|max:20'"
-                                        :counter="20"
+                                        v-validate="'required|max:10'"
+                                        :counter="10"
                                         :error-messages="errors.collect('siglaPais')"
                                         label="Siglas Pais*"
                                         data-vv-name="siglaPais"

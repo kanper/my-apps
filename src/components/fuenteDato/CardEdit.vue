@@ -9,15 +9,16 @@
                     <v-layout wrap>
                         <v-flex xs12>
                             <form>
-                                <v-text-field
+                                <v-textarea
                                         v-model="CRUDModel.nombreFuente"
-                                        v-validate="'required|max:50'"
-                                        :counter="50"
+                                        v-validate="'required|max:500'"
+                                        auto-grow box
+                                        :counter="500"
                                         :error-messages="errors.collect('nombreFuente')"
                                         label="Nombre fuente de datos"
                                         data-vv-name="nombreFuente"
                                         required
-                                ></v-text-field>
+                                ></v-textarea>
                             </form>
                         </v-flex>
                     </v-layout>
