@@ -13,6 +13,7 @@ import proyectoHelperService from '../services/ProyectoHelperService'
 import fuenteDatoService from '../services/FuenteDatoService'
 import desagregacionService from '../services/DesagregacionService'
 import nivelImpactoService from '../services/NivelImpactoService'
+import planMonitoreoEvaluacionService from '../services/PlanMonitoreoEvaluacionService'
 import usuarioService from '../services/UsuarioService'
 
 //let apiUrl = 'https://localhost:44320/';
@@ -37,5 +38,6 @@ export default {
     fuenteDatoService: new fuenteDatoService(Axios, apiUrl),
     desagregacionService: new desagregacionService(Axios, apiUrl),
     nivelImpactoService: new nivelImpactoService(Axios, apiUrl),
+    planMonitoreoEvaluacionService: new planMonitoreoEvaluacionService(Axios, apiUrl),
     usuarioService: new usuarioService(Axios, apiUrl)
 }

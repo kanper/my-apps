@@ -15,8 +15,14 @@ export default new Vuex.Store({
         visibleEditDialog: false,
         visibleDeleteDialog: false,
         visibleInfoDialog: false,
+        extraDialog: [
+            {visible: false},
+            {visible: false},
+            {visible: false},
+        ],
         CRUDModel: {},
         dataTable: [],
+        tableRow: {},
         alerts: []
     },
     mutations: {
@@ -45,6 +51,9 @@ export default new Vuex.Store({
         changeInfoDialogVisibility(state) {
             state.visibleInfoDialog = !state.visibleInfoDialog;
         },
+        changeExtraDialogVisibility(state, dialogId) {
+            state.extraDialog[dialogId].visible = !state.extraDialog[dialogId].visible;
+        },
         closeAllDialogs(state) {
             state.visibleNewDialog = false;
             state.visibleEditDialog = false;
@@ -66,6 +75,10 @@ export default new Vuex.Store({
         },
         emptyDataTable(state){
             state.dataTable = [];
+        },
+        setTableRow(state, row)
+        {
+            state.tableRow = row;
         }
     },
     actions: {

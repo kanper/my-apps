@@ -1,8 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <v-dialog fullscreen v-model="extraDialog[0].visible" hide-overlay transition="dialog-bottom-transition">
+    <v-dialog fullscreen v-model="visibleNewDialog" hide-overlay transition="dialog-bottom-transition">
         <v-card>
             <v-toolbar dark color="black">
-                <v-btn icon dark @click="changeExtraDialogVisibility(0)">
+                <v-btn icon dark @click="changeNewDialogVisibility">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
                 <v-toolbar-title>Formulario de {{modelSpecification.modelTitle}}: Plan de monitoreo y evaluación</v-toolbar-title>
@@ -20,6 +20,7 @@
                         hide-details
                 ></v-text-field>
                 <v-data-table
+                        v-model="selected"
                         :headers="headers"
                         :items="indicadores"
                         :search="search"
@@ -35,13 +36,13 @@
                                     hide-details
                             ></v-checkbox>
                         </td>
-                        <td>{{ props.item.nombreObjetivo }}</td>
-                        <td class="text-xs-right">{{ props.item.nombreResultado }}</td>
-                        <td class="text-xs-right">{{ props.item.nombreActividad }}</td>
-                        <td class="text-xs-right">{{ props.item.nombreIndicador }}</td>
+                        <td class="text-xs-left">{{ props.item.nombreObjetivo }}</td>
+                        <td class="text-xs-left">{{ props.item.nombreResultado }}</td>
+                        <td class="text-xs-left">{{ props.item.nombreActividad }}</td>
+                        <td class="text-xs-left">{{ props.item.nombreIndicador }}</td>
                     </template>
                     <template v-slot:no-results>
-                        <v-alert :value="true" color="error" icon="warning">
+                        <v-alert :value="true" color="error" icon="mdi-alert">
                             La busqueda de "{{ search }}" no tiene resultados.
                         </v-alert>
                     </template>
@@ -49,7 +50,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="changeExtraDialogVisibility(0)" color="gray darken-1" flat>Cancelar</v-btn>
+                <v-btn @click="changeNewDialogVisibility" color="gray darken-1" flat>Cancelar</v-btn>
                 <v-btn @click="save()" color="green darken-1" flat>Guardar</v-btn>
             </v-card-actions>
         </v-card>
@@ -63,30 +64,33 @@
         data() {
             return {
                 search: '',
+                selected: [],
                 headers: [
                     {text: 'Objetivo', align: 'left', value: 'nombreObjetivo'},
                     {text: 'Resultado', align: 'left', value: 'nombreResultado'},
                     {text: 'Actividad', align: 'left', value: 'nombreActividad'},
                     {text: 'Indicador', align: 'left', value: 'nombreIndicador'},
-                    ],
+                ],
+                newModel: {
+
+                },
+                indicadores: [],
             }
         },
         computed: {
-            ...mapState(['modelSpecification', 'extraDialog', 'services', 'tableRow']),
-            indicadores: function () {
-                this.services.proyectoHelperService.getIndicadores(this.tableRow.id);
-            }
+            ...mapState(['modelSpecification', 'visibleNewDialog', 'services'])
         },
         methods: {
-            ...mapMutations(['changeExtraDialogVisibility', 'closeAllDialogs', 'showInfo', 'addAlert']),
+            ...mapMutations(['changeNewDialogVisibility', 'closeAllDialogs', 'showInfo', 'addAlert']),
             ...mapActions(['loadDataTable']),
             save() {
                 this.$validator.validateAll()
                     .then(v => {
                         if (v) {
-                            this.services[this.modelSpecification.modelService].add(this.newModel, this.modelSpecification.modelParams)
+                            this.services[this.modelSpecification.modelService].add(this.selected, this.modelSpecification.modelParams)
                                 .then(r => {
                                     this.loadDataTable();
+                                    this.clearForm();
                                     if (r.data) {
                                         this.addAlert({
                                             value: true,
@@ -114,10 +118,21 @@
                     .catch(e => {
                         this.showInfo(e.toString());
                     });
-            }
+            },
+            clearForm(){
+                this.newModel.metodologia = '';
+                this.newModel.lineaBase = '';
+                this.$validator.reset();
+            },
         },
         created() {
-
+            this.services.proyectoHelperService.getUnselectedIndicadores(this.$route.params.id)
+                .then(r => {
+                   this.indicadores = r.data;
+                })
+                .catch(e =>{
+                    this.showInfo(e.toString());
+                });
         }
     }
 </script>

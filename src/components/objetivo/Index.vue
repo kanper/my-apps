@@ -78,12 +78,12 @@
                         icon: 'mdi-information-outline',    //Icono que se muestra para el boton
                         action: '',                         //Acción personalizada
                         class: 'mr-2',                      //Clase a agregar
-                        route: '',                          //Ruta a redirigir
-                        params: {}                          //Parametros para la ruta a redirigir
+                        route: '',
+                        show: (row) => {return true}
                     },
-                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: ''},
-                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: ''},
-                    {text: 'Resultados', type: 'redirect', icon: 'mdi-lightbulb', action: '', class: 'mr-3', route: 'objetivo-resultado-index'}
+                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', route: '',class: 'mr-2', show: (row) => {return true}},
+                    {text: 'Resultados', type: 'redirect', icon: 'mdi-lightbulb', action: '', class: 'mr-3', route: 'objetivo-resultado-index', show: (row) => {return true}}
                 ],
             }
         },

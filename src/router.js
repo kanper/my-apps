@@ -14,6 +14,7 @@ import ProyectoIndex from './components/proyecto/Index'
 import FuenteDatoIndex from './components/fuenteDato/Index'
 import DesagreacionIndex from './components/desagregacion/Index'
 import NivelImpactoIndex from './components/nivelImpacto/Index'
+import PlanIndex from './components/plan/Index'
 import UsuarioIndex from './components/usuarios/Index'
 
 Vue.use(Router);
@@ -34,6 +35,8 @@ const routes = [
     {path: '/fuente-datos/', name: 'fuente-dato-index', component: FuenteDatoIndex},
     {path: '/desagregaciones/', name: 'desagregacion-index', component: DesagreacionIndex},
     {path: '/niveles-impacto/', name: 'nivel-impacto-index', component: NivelImpactoIndex},
+    {path: '/proyecto/:id/plan-monitoreo-evaluacion/', name: 'plan-index', component: PlanIndex},
+    {path: '/usuarios/', name: 'UsuarioIndex', component: UsuarioIndex}
 ];
 
 export default new Router({

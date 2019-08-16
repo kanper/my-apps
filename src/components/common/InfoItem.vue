@@ -62,6 +62,8 @@
                             return value.map(function (item) {
                                 return item['nombre'];
                             }).join(', ');
+                        case 'obj':
+                            return value.nombre;
                         default:
                             return value;
                     }
