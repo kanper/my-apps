@@ -84,10 +84,11 @@
                         action: '',                         //Acción personalizada
                         class: 'mr-2',                      //Clase a agregar
                         route: '',                          //Ruta a redirigir
-                        params: {}                          //Parametros para la ruta a redirigir
+                        params: {},
+                        show: (row) => {return true}                          //Parametros para la ruta a redirigir
                     },
-                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: ''},
-                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: ''},
+                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
                 ],
             }
         },
