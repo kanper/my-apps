@@ -62,9 +62,9 @@
                         {name: 'Indicador', value: 'nombreIndicador', type: 'text'},
                         {name: 'Metodología', value: 'metodologia', type: 'text'},
                         {name: 'Linea base', value: 'lineaBase', type: 'text'},
-                        {name: 'Fuente dato', value: 'nombreFuenteDato', type: 'text'},
-                        {name: 'Frecuencia de medición', value: 'nombreFrecuenciaMedicion', type: 'text'},
-                        {name: 'Nivel de impacto', value: 'nombreNivelImpacto', type: 'text'},
+                        {name: 'Fuente dato', value: 'fuenteDato', type: 'obj'},
+                        {name: 'Frecuencia de medición', value: 'frecuenciaMedicion', type: 'obj'},
+                        {name: 'Nivel de impacto', value: 'nivelImpacto', type: 'obj'},
                         {name: 'Desagregaciones', value: 'desagregaciones', type: 'array'},
                     ],
                     modelParams: {                                         //Parametros para el modelo
@@ -76,7 +76,7 @@
                         text: 'Indicador',   //Texto a mostrar en la cabecera de la columna
                         align: 'left',      //Alineación del contenido en la columna
                         value: 'nombreIndicador',    //Nombre del atributo que se colocara en la columna
-                        width: '30%',       //Tamaño de la columna
+                        width: '60%',       //Tamaño de la columna
                         type: 'text'        //Tipo del contenido a mostrar en la columna
                     },
                     {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}

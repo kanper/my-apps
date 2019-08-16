@@ -28,6 +28,10 @@ export default class ProyectoHelperService {
         return this.Axios.get(`${this.BaseUrl}/helper/indicador`)
     }
 
+    getUnselectedIndicadores(idProyecto) {
+        return this.Axios.get(`${this.BaseUrl}/${idProyecto}/helper/indicador`)
+    }
+
     getFuentes(){
         return this.Axios.get(`${this.BaseUrl}/helper/fuente`)
     }

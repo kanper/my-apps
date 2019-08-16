@@ -18,27 +18,21 @@
                                             v-model="CRUDModel.lineaBase" v-validate="'required|max:50'"
                                 ></v-textarea>
                                 <v-combobox
-                                        v-model="CRUDModel.fuenteDatoId"
+                                        v-model="CRUDModel.fuenteDato"
                                         :items="fuentes"
                                         item-text="nombre"
-                                        item-value="id"
-                                        :return-object="false"
                                         label="Seleccionar la fuente de datos"
                                 ></v-combobox>
                                 <v-combobox
-                                        v-model="CRUDModel.frecuenciaMedicionId"
+                                        v-model="CRUDModel.frecuenciaMedicion"
                                         :items="frecuencias"
                                         item-text="nombre"
-                                        item-value="id"
-                                        :return-object="false"
                                         label="Seleccionar la frecuencia de medición"
                                 ></v-combobox>
                                 <v-combobox
-                                        v-model="CRUDModel.nivelImpactoId"
+                                        v-model="CRUDModel.nivelImpacto"
                                         :items="niveles"
                                         item-text="nombre"
-                                        item-value="id"
-                                        :return-object="false"
                                         label="Seleccionar el nivel de impacto"
                                 ></v-combobox>
                                 <v-combobox

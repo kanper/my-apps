@@ -79,14 +79,18 @@
                 return text;
             },
             formatDate(text){
+                if(text !== undefined)
                 return text.split('T')[0];
             },
             formatTime(text){
+                if(text !== undefined)
                 return text.split('T')[1];
             },
             formatDateTime(text){
-                let datetime = text.split('T');
-                return datetime[0] + ' ' + datetime[1];
+                if(text !== undefined){
+                    let datetime = text.split('T');
+                    return datetime[0] + ' ' + datetime[1];
+                }
             }
 
         },

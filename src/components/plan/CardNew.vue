@@ -126,7 +126,7 @@
             },
         },
         created() {
-            this.services.proyectoHelperService.getIndicadores()
+            this.services.proyectoHelperService.getUnselectedIndicadores(this.$route.params.id)
                 .then(r => {
                    this.indicadores = r.data;
                 })
