@@ -14,6 +14,7 @@ import fuenteDatoService from '../services/FuenteDatoService'
 import desagregacionService from '../services/DesagregacionService'
 import nivelImpactoService from '../services/NivelImpactoService'
 import planMonitoreoEvaluacionService from '../services/PlanMonitoreoEvaluacionService'
+import planTrabajoService from '../services/PlanTrabajoService'
 import usuarioService from '../services/UsuarioService'
 
 //let apiUrl = 'https://localhost:44320/';
@@ -38,5 +39,6 @@ export default {
     desagregacionService: new desagregacionService(Axios, apiUrl),
     nivelImpactoService: new nivelImpactoService(Axios, apiUrl),
     planMonitoreoEvaluacionService: new planMonitoreoEvaluacionService(Axios, apiUrl),
+    planTrabajoService: new planTrabajoService(Axios, apiUrl),
     usuarioService: new usuarioService(Axios, apiUrl)
 }

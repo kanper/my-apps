@@ -5,6 +5,7 @@
                 <v-alert :color="alert.color" :icon="alert.icon" :value="alert.value"
                          dismissible
                          outline
+                         transition="scale-transition"
                          v-bind:data="alert"
                          v-bind:key="index"
                          v-for="(alert, index) in alerts"

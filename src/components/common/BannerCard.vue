@@ -6,9 +6,14 @@
                     <v-card-title>
                         <v-icon large left>{{icon}}</v-icon>
                         <span class="title font-weight-light">{{title}}</span>
+                        <v-layout align-center justify-end>
+                            <v-btn icon @click="show = !show">
+                                <v-icon>{{ show ? 'mdi-menu-down' : 'mdi-menu-up' }}</v-icon>
+                            </v-btn>
+                        </v-layout>
                     </v-card-title>
 
-                    <v-card-text class="headline font-weight-bold">
+                    <v-card-text class="headline font-weight-bold" v-show="show">
                         {{text}}
                     </v-card-text>
                 </v-card>
@@ -26,6 +31,11 @@
             title: String,
             text: String
         },
+        data() {
+            return {
+                show: true
+            }
+        }
     }
 </script>
 
