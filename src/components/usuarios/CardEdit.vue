@@ -74,21 +74,13 @@
                 :type="show1 ? 'text' : 'password'"
                 hint="al menos 8 caracteres"
                 data-vv-name="password"
-                label="Contraseña *"
+                label="Contraseña Nueva*"
                 required
                 @click:append="show1 = !show1"
-                v-model="CRUDModel.password"
+                v-model="CRUDModel.newPassword"
                 v-validate="'required|min:8'"
               ></v-text-field>
               <v-spacer></v-spacer>
-              <v-combobox
-                :items="roles"
-                item-text="nombre"
-                label="Seleccione el rol del usuario *"
-                required
-                v-model="name"
-                :return-object="false"
-              ></v-combobox>
               <v-combobox
                 :items="paises"
                 item-text="nombre"
@@ -118,7 +110,7 @@ export default {
   data() {
     return {
       paises: [],
-      roles: [],
+      changepassword: '',
       show1: false,
       emailRules: [
         v => !!v || 'E-mail es Obligatorio',
@@ -146,17 +138,6 @@ export default {
         },
       set: function (newValue) {
           this.CRUDModel.pais = newValue;
-        }
-      },
-    name: {
-      get: function () {
-          if(this.CRUDModel.name === undefined){
-              //return new Date().toISOString().substr(0, 10);
-            }
-          return this.CRUDModel.name;
-        },
-      set: function (newValue) {
-          this.CRUDModel.name = newValue;
         }
       },
   },
@@ -221,14 +202,6 @@ export default {
       .then(r => {
         this.paises = r.data;
       }).catch(e => {
-        this.showInfo(e.toString());
-      });
-    this.services.proyectoHelperService
-      .getRoles()
-      .then(r => {
-        this.roles = r.data;
-      })
-      .catch(e => {
         this.showInfo(e.toString());
       });
   }
