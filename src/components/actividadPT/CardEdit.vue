@@ -9,49 +9,45 @@
                     <v-layout wrap>
                         <v-flex xs12>
                             <form>
-                                <v-textarea :counter="1000" :error-messages="errors.collect('nombre')" auto-grow box
-                                            clearable data-vv-name="nombre" label="Nombre *" required
-                                            v-model="CRUDModel.nombreIndicador" v-validate="'required|max:1000'"
-                                ></v-textarea>
-
-                                <v-switch v-model="usePercent" label="Agregar porcentaje"></v-switch>
-
-                                <v-text-field :error-messages="errors.collect('meta')" v-if="!usePercent"
-                                              clearable data-vv-name="meta" label="Meta *" required
-                                              v-model="CRUDModel.valorMeta" v-validate="'required|min_value:0|max_value:2147483646|numeric'"
+                                <v-text-field
+                                        v-model="CRUDModel.nombreActividad"
+                                        v-validate="'required|max:100'"
+                                        :counter="100"
+                                        :error-messages="errors.collect('nombre actividad')"
+                                        label="Nombre actividad"
+                                        data-vv-name="nombreActividad"
+                                        required
                                 ></v-text-field>
-                                <v-subheader class="pl-0">Porcetaje para la meta</v-subheader>
-                                <v-flex text-xs-left>
-                                  <span
-                                          class="display-3 font-weight-light"
-                                          v-text="slider"
-                                  ></span>
-                                    <span class="subheading font-weight-light mr-1">%</span>
-                                </v-flex>
-                                <v-slider
-                                        v-if="usePercent"
-                                        v-model="slider"
-                                        thumb-label
-                                        min="0.0"
-                                        max="100.0"
-                                        step="0.1"
+                                <v-text-field
+                                        v-model="CRUDModel.monto"
+                                        v-validate="'required|decimal:2'"
+                                        :error-messages="errors.collect('monto')"
+                                        label="Monto"
+                                        data-vv-name="monto"
+                                        required
+                                ></v-text-field>
+                                <v-menu
+                                        :close-on-content-click="false"
+                                        :nudge-right="40"
+                                        full-width
+                                        lazy
+                                        min-width="290px"
+                                        offset-y
+                                        transition="scale-transition"
+                                        v-model="datePick"
                                 >
-                                    <template v-slot:prepend>
-                                        <v-icon
-                                                @click="decrement"
-                                        >
-                                            mdi-minus
-                                        </v-icon>
+                                    <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                                label="Fecha limite"
+                                                prepend-icon="mdi-calendar"
+                                                readonly
+                                                v-model="limitDate"
+                                                v-on="on"
+                                        ></v-text-field>
                                     </template>
-
-                                    <template v-slot:append>
-                                        <v-icon
-                                                @click="increment"
-                                        >
-                                            mdi-plus
-                                        </v-icon>
-                                    </template>
-                                </v-slider>
+                                    <v-date-picker @input="datePick = false" locale="es-es"
+                                                   v-model="limitDate"></v-date-picker>
+                                </v-menu>
                             </form>
                         </v-flex>
                     </v-layout>
@@ -69,15 +65,26 @@
 
 <script>
     import {mapActions, mapMutations, mapState} from 'vuex'
+
     export default {
         data() {
             return {
-                slider: 0.0,
-                usePercent: false
+                datePick: false
             }
         },
         computed: {
-            ...mapState(['modelSpecification', 'visibleEditDialog', 'CRUDModel', 'services'])
+            ...mapState(['modelSpecification', 'visibleEditDialog', 'CRUDModel', 'services']),
+            limitDate: {
+                get: function () {
+                    if (this.CRUDModel.fechaLimite === undefined){
+                        return new Date().toISOString().substr(0, 10);
+                    }
+                    return this.CRUDModel.fechaLimite.split('T')[0];
+                },
+                set: function (newValue) {
+                    this.CRUDModel.fechaLimite = newValue;
+                }
+            },
         },
         methods: {
             ...mapMutations(['changeEditDialogVisibility', 'closeAllDialogs', 'showInfo', 'addAlert']),
@@ -85,7 +92,6 @@
             update() {
                 this.$validator.validateAll()
                     .then(v => {
-                        this.setModelSelectedValue();
                         if (v) {
                             this.services[this.modelSpecification.modelService].update(this.CRUDModel, this.CRUDModel[this.modelSpecification.modelPK], this.modelSpecification.modelParams)
                                 .then(r => {
@@ -117,22 +123,6 @@
                     .catch(e => {
                         this.showInfo(e.toString());
                     });
-            },
-            increment() {
-                if(this.slider < 99.99)
-                this.slider += 0.1;
-            },
-            decrement() {
-                if(this.slider > 0.01)
-                this.slider -= 0.1;
-            },
-            setModelSelectedValue() {
-                if (this.usePercent) {
-                    this.CRUDModel.valorMeta = 0;
-                    this.CRUDModel.porcentajeMeta = this.slider;
-                } else {
-                    this.CRUDModel.porcentajeMeta = 0.0;
-                }
             }
         }
     }

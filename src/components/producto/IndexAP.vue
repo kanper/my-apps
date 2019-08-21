@@ -1,7 +1,7 @@
 <template>
     <div>
         <TitleBar :enableBackBtn="true"/>
-        <Banner color="grey" icon="mdi-clipboard" title="Proyecto" :text="bannerText"/>
+        <Banner color="grey" icon="mdi-puzzle" title="Actividad" :text="bannerText"/>
         <AppAlert/>
         <v-container>
             <v-layout>
@@ -42,40 +42,33 @@
             FormNew,
             Banner
         },
-        name: "plan-index",
+        name: "actividad-producto-index",
         data() {
             return {
                 model: {
-                    modelName: 'plan',                              //Nombre del modelo actual
-                    modelIcon: 'mdi-elevation-rise',    //Icono que se muestra en representación del modelo
-                    modelTitle: 'Plan Monitoreo y Evaluación',                            //Nombre que se muestra en representación del modelo
+                    modelName: 'producto',                              //Nombre del modelo actual
+                    modelIcon: 'mdi-apps',    //Icono que se muestra en representación del modelo
+                    modelTitle: 'Productos',                            //Nombre que se muestra en representación del modelo
                     modelPath: '',                                      //URL que junto a la BASE es la ruta al servidor
-                    modelService: 'planMonitoreoEvaluacionService',                    //Nombre del servicio a utilizar
-                    modelPK: 'indicadorId',                          //Llave primaria del modelo
-                    modelStamp: 'nombreIndicador',                       //Valor único representativo del modelo
+                    modelService: 'actividadProductoService',                    //Nombre del servicio a utilizar
+                    modelPK: 'id',                          //Llave primaria del modelo
+                    modelStamp: 'nombreProducto',                       //Valor único representativo del modelo
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
-                            name: 'Proyecto',
-                            value: 'nombreProyecto',
+                            name: 'Nombre producto',
+                            value: 'nombreProducto',
                             type: 'text'
-                        },
-                        {name: 'Indicador', value: 'nombreIndicador', type: 'text'},
-                        {name: 'Metodología', value: 'metodologia', type: 'text'},
-                        {name: 'Linea base', value: 'lineaBase', type: 'text'},
-                        {name: 'Fuente dato', value: 'fuenteDato', type: 'obj'},
-                        {name: 'Frecuencia de medición', value: 'frecuenciaMedicion', type: 'obj'},
-                        {name: 'Nivel de impacto', value: 'nivelImpacto', type: 'obj'},
-                        {name: 'Desagregaciones', value: 'desagregaciones', type: 'array'},
+                        }
                     ],
                     modelParams: {                                         //Parametros para el modelo
-                        idProyecto: this.$route.params.id
-                    },
+                        id: this.$route.params.id
+                    }
                 },
                 dataTableHeaders: [
                     {
-                        text: 'Indicador',   //Texto a mostrar en la cabecera de la columna
+                        text: 'Producto',   //Texto a mostrar en la cabecera de la columna
                         align: 'left',      //Alineación del contenido en la columna
-                        value: 'nombreIndicador',    //Nombre del atributo que se colocara en la columna
+                        value: 'nombreProducto',    //Nombre del atributo que se colocara en la columna
                         width: '60%',       //Tamaño de la columna
                         type: 'text'        //Tipo del contenido a mostrar en la columna
                     },
@@ -92,7 +85,7 @@
                         show: (row) => {return true}
                     },
                     {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
-                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', route: '',class: 'mr-2', show: (row) => {return true}},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: '', show: (row) => {return true}}
                 ],
                 bannerText: ''
             }
@@ -106,9 +99,9 @@
         created() {
             this.clearAlerts();
             this.defineModel(this.model);
-            this.services.proyectoService.get(this.$route.params.id)
+            this.services.actividadPtService.get(this.$route.params.id)
                 .then(r => {
-                    this.bannerText = r.data.nombreProyecto;
+                    this.bannerText = r.data.nombreActividad;
                 })
                 .catch(e => {
                     this.showInfo(e.toString());

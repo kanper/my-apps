@@ -1,17 +1,17 @@
 <template>
     <v-card>
         <v-card-title primary-title>
-            <v-icon
-                    large
-                    left
-            >
-                mdi-bookmark
-            </v-icon>
+            <v-icon large left>{{icon}}</v-icon>
             <div>
                 <div class="headline">{{name}}</div>
             </div>
+            <v-layout align-center justify-end>
+                <v-btn icon @click="show = !show">
+                    <v-icon>{{ show ? 'mdi-menu-down' : 'mdi-menu-up' }}</v-icon>
+                </v-btn>
+            </v-layout>
         </v-card-title>
-        <v-card-text>
+        <v-card-text v-show="show">
             {{buildCardContent(value,itemType)}}
         </v-card-text>
     </v-card>
@@ -36,6 +36,12 @@
                 type: String,
                 require: false,
                 default: 'text'
+            },
+        },
+        data() {
+            return {
+                icon: 'mdi-bookmark',
+                show: true
             }
         },
         computed:{
@@ -47,22 +53,36 @@
                 if(value !== undefined){
                     switch (type) {
                         case 'text':
+                            this.icon = 'mdi-file-document-box';
                             return value;
                         case 'number':
-                            return value;
+                            this.icon = 'mdi-numeric';
+                            return this.numberWithCommas(value);
                         case 'date':
+                            this.icon = 'mdi-calendar-multiple-check';
                             return this.formatDate(value);
                         case 'datetime':
+                            this.icon = 'mdi-calendar-clock';
                             return this.formatDateTime(value);
                         case 'money':
-                            return '$ ' + value;
+                            this.icon = 'mdi-cash-usd';
+                            return '$ ' + this.numberWithCommas(value);
+                        case 'percent':
+                            this.icon = ' mdi-margin';
+                            return value + ' %';
                         case 'time':
+                            this.icon = 'mdi-clock';
                             return this.formatTime(value);
+                        case 'boolean':
+                            this.icon = 'mdi-checkbox-marked-circle-outline';
+                            return value;
                         case 'array':
+                            this.icon = 'mdi-table';
                             return value.map(function (item) {
                                 return item['nombre'];
                             }).join(', ');
                         case 'obj':
+                            this.icon = 'mdi-package-variant-closed';
                             return value.nombre;
                         default:
                             return value;
@@ -78,6 +98,9 @@
             formatDateTime(text){
                 let datetime = text.split('T');
                 return datetime[0] + ' ' + datetime[1];
+            },
+            numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
         }
     }

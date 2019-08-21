@@ -16,7 +16,7 @@
                 :search="search"
         >
             <template v-slot:items="props">
-                <td :class="at['align'] === 'center' ? 'text-xs-center': 'text-xs-left'" v-for="at in headers">
+                <td :class="(at['align'] === 'center' ? 'text-xs-center': 'text-xs-left') + ' ' + (at['style'] !== undefined ? at['style'] : '')" v-for="at in headers">
                     {{buildTableCell(props.item,at)}}
                     <TableOption :modelId="props.item[modelSpecification.modelPK]" v-bind:data="item" v-bind:key="item.text" :model="props.item"
                                  v-for="item in options" v-if="at.value === 'action' && item.show(props.item)"/>
@@ -99,3 +99,8 @@
         }
     }
 </script>
+<style>
+    .active-column {
+        background-color: #E0E0E0;
+    }
+</style>

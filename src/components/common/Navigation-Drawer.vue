@@ -75,6 +75,7 @@ export default {
                         icon: 'mdi-briefcase',
                         children: [
                             {icon: 'mdi-format-list-bulleted', title: 'Listar', path:'/proyectos'},
+                            {icon: 'mdi-drawing', title: 'Plan de trabajo', path:'/planes-trabajo'},
                         ]
                     },
                 ],
