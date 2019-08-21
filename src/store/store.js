@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         services,
+        drawer: false,
         modelTitle: '',
         modelSpecification:{},
         snackbarInformationVisible: false,
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     mutations: {
         setModelName(state, name) {
             state.modelTitle = name;
+        },
+        changedrawer(state) {
+            state.drawer = !state.drawer;
         },
         defineModel(state, model) {
             state.modelSpecification = model;
