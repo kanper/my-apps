@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TitleBar :enableAddBtn="false"/>
+        <TitleBar :enable-add-btn="false"/>
         <AppAlert/>
         <v-container>
             <v-layout>
@@ -10,6 +10,7 @@
             </v-layout>
         </v-container>
         <DataInfo/>
+        <FormNew />
         <FormEdit />
         <DeleteDialog/>
         <InfoSnackbar/>
@@ -25,6 +26,7 @@
     import DataInfo from '../common/CardInfo'
     import AppAlert from '../common/Alert'
     import DataTable from '../common/DataTable'
+    import FormNew from './CardNew'
 
     export default {
         components: {
@@ -34,28 +36,31 @@
             TitleBar,
             AppAlert,
             FormEdit,
-            DataInfo
+            DataInfo,
+            FormNew
         },
-        name: "plan-trabajo-index",
+        name: "objetivo-index",
         data() {
             return {
                 model: {
-                    modelName: 'planTrabajo',                              //Nombre del modelo actual
-                    modelIcon: 'mdi-drawing-box',    //Icono que se muestra en representación del modelo
-                    modelTitle: 'Planes de trabajo',                            //Nombre que se muestra en representación del modelo
+                    modelName: 'actividadPt',                              //Nombre del modelo actual
+                    modelIcon: 'mdi-puzzle',    //Icono que se muestra en representación del modelo
+                    modelTitle: 'Plan de trabajo: Actividades',                            //Nombre que se muestra en representación del modelo
                     modelPath: '',                                      //URL que junto a la BASE es la ruta al servidor
-                    modelService: 'planTrabajoService',                    //Nombre del servicio a utilizar
-                    modelPK: 'proyectoId',                          //Llave primaria del modelo
-                    modelStamp: 'nombreProyecto',                       //Valor único representativo del modelo
+                    modelService: 'actividadPtService',                    //Nombre del servicio a utilizar
+                    modelPK: 'id',                          //Llave primaria del modelo
+                    modelStamp: 'nombreActividad',                       //Valor único representativo del modelo
                     modelInfo: [                                        //Valores a mostrar para la información del modelo
                         {
-                            name: 'Nombre proyecto',
-                            value: 'nombreProyecto',
+                            name: 'Actividad',
+                            value: 'nombreActividad',
                             type: 'text'
                         },
-                        {name: 'Plan de trabajo: fecha creación', value:'fecha', type:'date'}
+                        {name: 'Fecha limite', value: 'fechaLimite', type: 'date'},
+                        {name: 'Monto', value: 'monto', type: 'money'}
                     ],
                     modelParams: {                                         //Parametros para el modelo
+                        id: this.$route.params.id
                     }
                 },
                 dataTableHeaders: [
@@ -63,14 +68,16 @@
                         text: 'Proyecto',   //Texto a mostrar en la cabecera de la columna
                         align: 'left',      //Alineación del contenido en la columna
                         value: 'nombreProyecto',    //Nombre del atributo que se colocara en la columna
-                        width: '50%',       //Tamaño de la columna
+                        width: '35%',       //Tamaño de la columna
                         type: 'text'        //Tipo del contenido a mostrar en la columna
                     },
-                    {text: 'Plan trabajo', align: 'center', value: 'fecha', type: 'date'},
+                    {text: 'Actividad', align: 'left', value: 'nombreActividad', type: 'text'},
+                    {text: 'Plan trabajo', align: 'center', value: 'fechaCreacion', type: 'date'},
+                    {text: 'Fecha limite', align: 'center', value: 'fechaLimite', type: 'date'},
+                    {text: 'Monto', align: 'center', value: 'monto', type: 'money'},
                     {text: 'Opciones', align: 'center', value: 'action', sortable: false, type: 'option'}
                 ],
                 dataTableOptions: [
-                    {text: 'Crear plan de trabajo', type: 'link', icon: 'mdi-plus-circle-outline', action: 'create', class: 'mr-2', route: '', show: (row) => {return !row.isPlanTrabajo}},
                     {
                         text: 'Información',                //Texto que se muestra para el boton
                         type: 'info',                       //Tipo de boton [info|new|edit|delete|redirect]
@@ -80,9 +87,9 @@
                         route: '',
                         show: (row) => {return true}
                     },
-                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', show: (row) => {return row.isPlanTrabajo}},
-                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', route: '',class: 'mr-2', show: (row) => {return row.isPlanTrabajo}},
-                    {text: 'Resultados', type: 'redirect', icon: 'mdi-puzzle', action: '', class: 'mr-3', route: 'plan-trabajo-actividad-index', show: (row) => {return row.isPlanTrabajo}}
+                    {text: 'Editar', type: 'edit', icon: 'mdi-pencil', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
+                    {text: 'Eliminar', type: 'delete', icon: 'mdi-delete', action: '', class: 'mr-2', route: '', show: (row) => {return true}},
+                    {text: 'Productos', type: 'redirect', icon: 'mdi-apps', action: '', class: 'mr-3', route: 'actividad-producto-index', show: (row) => {return true}}
                 ],
             }
         },

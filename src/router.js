@@ -16,6 +16,10 @@ import DesagreacionIndex from './components/desagregacion/Index'
 import NivelImpactoIndex from './components/nivelImpacto/Index'
 import PlanIndex from './components/plan/Index'
 import PlanTrabajoIndex from './components/planTrabajo/Index'
+import ActividadPTIndex from './components/actividadPT/Index'
+import PlanActividadIndex from './components/actividadPT/IndexPt'
+import ProductoIndex from './components/producto/Index'
+import ActividadProductoIndex from './components/producto/IndexAP'
 import UsuarioIndex from './components/usuarios/Index'
 import UsuarioCreateUpdate from './components/usuarios/CreateOrUpdate'
 
@@ -38,6 +42,10 @@ const routes = [
     {path: '/niveles-impacto/', name: 'nivel-impacto-index', component: NivelImpactoIndex},
     {path: '/proyecto/:id/plan-monitoreo-evaluacion/', name: 'plan-index', component: PlanIndex},
     {path: '/planes-trabajo/', name: 'plan-trabajo-index', component: PlanTrabajoIndex},
+    {path: '/planes-trabajo/actividades', name: 'actividad-pt-index', component: ActividadPTIndex},
+    {path: '/planes-trabajo/:id/actividades', name: 'plan-trabajo-actividad-index', component: PlanActividadIndex},
+    {path: '/productos', name: 'producto-index', component: ProductoIndex},
+    {path: '/actividad/:id/productos', name: 'actividad-producto-index', component: ActividadProductoIndex},
     {path: '/usuarios/', name: 'UsuarioIndex', component: UsuarioIndex},
     {path: '/usuarios/add', name: 'UsuarioCreate', component: UsuarioCreateUpdate},
     {path: '/usuario/:id/edit', name: 'usuarioEditar', component: UsuarioCreateUpdate}
